@@ -93,7 +93,10 @@
 
 ## What This Tool Can Do
 
-- [x] List Players and Their Pals
+- [x] List players, bases, and their Pals; group working Pals by base and show unmatched workers as unassigned
+- [x] Show base name, guild, level, worker count, and map coordinates
+- [x] Edit each guild's existing Lab research tree, including prerequisite and dependent research cascades and unlocking all research at once
+  - Guild research editing requires existing Lab data in the selected guild; the editor does not create missing Lab data
 - [x] Modify Player Level
 - [x] Modify Player Name
 - [x] Unlock Tech
@@ -124,7 +127,7 @@
 ## Future TODOs (No ETA)
 
 - [ ] User defined skill presets.
-- [ ] The player group and pal container implementation overhaul, which enables me to properly label the containers (i.e. the inventory), and group the pals based on that and change pal ownerships.
+- [ ] Complete the player inventory and container overhaul to label all container types and support changing Pal ownership.
 - [ ] A better UI?
 
 ## Usage

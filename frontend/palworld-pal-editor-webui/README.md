@@ -1,6 +1,12 @@
 # palworld-pal-editor-webui
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 and Vite frontend for Palworld Pal Editor.
+
+## Overview
+
+The WebUI provides separate player and base rosters, groups working Pals by base, exposes unmatched workers as unassigned, and displays base details. It also provides guild-scoped Lab research editing when the connected backend supports the research catalog API.
+
+Guild research is opened from the loaded-save toolbar. It edits existing Lab data and does not create Lab data for guilds that do not already have it.
 
 ## Recommended IDE Setup
 
@@ -26,4 +32,12 @@ npm run dev
 
 ```sh
 npm run build
+```
+
+### Tests
+
+Run the frontend contract and utility tests with Node's built-in test runner:
+
+```sh
+node --test tests/*.test.js
 ```
