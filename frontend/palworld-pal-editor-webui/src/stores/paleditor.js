@@ -229,6 +229,7 @@ export const usePalEditorStore = defineStore("paleditor", () => {
             this.SlotIndex = obj.SlotIndex;
             this.ContainerKind = obj.ContainerKind;
             this.FavoriteIndex = obj.FavoriteIndex ?? 0;
+            this.IsFavoritePal = obj.IsFavoritePal ?? false;
             this.OwnerName = obj.OwnerName;
             this.CharacterID = obj.CharacterID;
             this.FamilyID = obj.FamilyID;
@@ -244,8 +245,10 @@ export const usePalEditorStore = defineStore("paleditor", () => {
             this.NickName = obj.NickName;
             this.SkinName = obj.SkinName;
             this.Gender = obj.Gender;
-            this.Level = obj.Level;
-            this.FriendshipLevel = obj.FriendshipLevel;
+            this.Level = obj.Level ?? 1;
+            this.Exp = obj.Exp ?? 0;
+            this.ExpStatus = obj.ExpStatus ?? null;
+            this.FriendshipLevel = obj.FriendshipLevel ?? 0;
 
             this.HasBaseVariant = obj.HasBaseVariant;
             this.HasBossVariant = obj.HasBossVariant;
@@ -296,6 +299,12 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         swapRare() {
             this.IsRarePal = !this.IsRarePal;
             updatePal({ target: { name: "IsRarePal", value: this.IsRarePal } });
+        }
+
+        swapFavorite() {
+            return updatePal({
+                target: { name: "IsFavoritePal", value: !this.IsFavoritePal },
+            });
         }
 
         swapBoss() {
@@ -543,6 +552,7 @@ export const usePalEditorStore = defineStore("paleditor", () => {
 
     const PAL_LIST_SEARCH_KEYWORD = ref("");
     const PAL_LIST_SORT = ref("paldeck");
+    const PAL_LIST_SORT_DIRECTION = ref("asc");
     const PAL_LIST_PRIORITY_FILTER = ref("all");
     const PAL_LIST_EDITED_ONLY = ref(false);
     const PAL_LIST_CREATED_ONLY = ref(false);
@@ -1146,6 +1156,7 @@ export const usePalEditorStore = defineStore("paleditor", () => {
 
         PAL_LIST_SEARCH_KEYWORD.value = "";
         PAL_LIST_SORT.value = "paldeck";
+        PAL_LIST_SORT_DIRECTION.value = "asc";
         PAL_LIST_PRIORITY_FILTER.value = "all";
         PAL_LIST_EDITED_ONLY.value = false;
         PAL_LIST_CREATED_ONLY.value = false;
@@ -1597,6 +1608,10 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         if (!no_set_loading_flag) LOADING_FLAG.value = false;
     }
 
+    async function randomizePalIVs(minimum) {
+        return updatePal({ target: { name: "randomize_ivs", value: minimum } });
+    }
+
     function GET_PAL_OWNER_API_ID() {
         return BASE_PAL_BTN_CLK_FLAG.value
             ? PAL_BASE_WORKER_BTN.value
@@ -1891,6 +1906,7 @@ export const usePalEditorStore = defineStore("paleditor", () => {
 
         PAL_LIST_SEARCH_KEYWORD,
         PAL_LIST_SORT,
+        PAL_LIST_SORT_DIRECTION,
         PAL_LIST_PRIORITY_FILTER,
         PAL_LIST_EDITED_ONLY,
         PAL_LIST_CREATED_ONLY,
@@ -1955,6 +1971,7 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         selectPlayer,
         selectPal,
         updatePal,
+        randomizePalIVs,
         updatePlayer,
         writeSave,
         fetch_config,

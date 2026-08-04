@@ -1,10 +1,13 @@
 import copy
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 
 from palworld_pal_editor.api.pal import _pal_data
 from palworld_pal_editor.core.pal_entity import PalEntity
+from palworld_pal_editor.core.pal_objects import PalObjects
 from palworld_pal_editor.core.save_manager import SaveManager
+from palworld_pal_editor.utils.data_provider import DataProvider
 
 
 SAVE = (
@@ -88,6 +91,52 @@ class PalUpgradeTests(unittest.TestCase):
             self.assertEqual(pal.LastOwnerPlayerUId, pal.SkinAppliedCharacterId)
         finally:
             pal._pal_param = original
+
+    def test_randomize_ivs_updates_all_active_iv_fields(self):
+        pal = self.pals[0]
+        original = copy.deepcopy(pal._pal_param)
+        try:
+            with patch(
+                "palworld_pal_editor.core.pal_entity.random.randint",
+                side_effect=(40, 70, 100),
+            ):
+                values = pal.randomize_ivs(40)
+
+            self.assertEqual(
+                {"Talent_HP": 40, "Talent_Shot": 70, "Talent_Defense": 100},
+                values,
+            )
+            self.assertEqual(40, pal.Talent_HP)
+            self.assertEqual(70, pal.Talent_Shot)
+            self.assertEqual(100, pal.Talent_Defense)
+        finally:
+            pal._pal_param = original
+
+    def test_randomize_ivs_rejects_invalid_minimum(self):
+        pal = self.pals[0]
+        for value, error in ((True, TypeError), (1.5, TypeError), (0, ValueError), (101, ValueError)):
+            with self.subTest(value=value):
+                with self.assertRaises(error):
+                    pal.randomize_ivs(value)
+
+    def test_exp_status_flags_consistent_mismatched_and_over_max_values(self):
+        pal = object.__new__(PalEntity)
+        pal._pal_param = {
+            "Level": PalObjects.ByteProperty(80),
+            "Exp": PalObjects.Int64Property(DataProvider.get_pal_level_xp(80)),
+        }
+        self.assertIsNone(pal.ExpStatus)
+
+        pal._pal_param["Exp"] = PalObjects.Int64Property(
+            DataProvider.get_pal_level_xp(66)
+        )
+        self.assertEqual("mismatch", pal.ExpStatus)
+
+        max_level = DataProvider.get_pal_exp_table_max_level()
+        pal._pal_param["Exp"] = PalObjects.Int64Property(
+            DataProvider.get_pal_level_xp(max_level) + 1
+        )
+        self.assertEqual("over_max", pal.ExpStatus)
 
 
 if __name__ == "__main__":

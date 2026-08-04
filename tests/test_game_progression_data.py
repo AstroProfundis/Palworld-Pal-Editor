@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from palworld_pal_editor.utils.data_provider import DataProvider
+
 DATA = Path(__file__).parents[1] / "src/palworld_pal_editor/assets/data"
 EXP_FIELDS = {
     "BuildEXP",
@@ -87,3 +89,14 @@ def test_progression_tables_have_canonical_integer_keys_and_monotonic_totals():
     assert [row["required_point"] for row in ordered_friendship] == sorted(
         row["required_point"] for row in ordered_friendship
     )
+
+
+def test_pal_exp_level_inverse_matches_cumulative_ranges():
+    for level in (1, 10, 50, 65, 66, 80, 100):
+        exp = DataProvider.get_pal_level_xp(level)
+        assert DataProvider.get_pal_exp_level(exp) == level
+
+    max_level = DataProvider.get_pal_exp_table_max_level()
+    max_exp = DataProvider.get_pal_level_xp(max_level)
+    assert DataProvider.get_pal_exp_level(0) == 1
+    assert DataProvider.get_pal_exp_level(max_exp + 1) == max_level

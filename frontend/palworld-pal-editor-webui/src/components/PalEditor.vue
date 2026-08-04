@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue'
+
 import PalPortrait from '@/components/modules/PalPortrait.vue'
 import PalSpeciesSelector from '@/components/modules/PalSpeciesSelector.vue'
 import SearchSelect from '@/components/modules/SearchSelect.vue'
@@ -8,6 +10,13 @@ import { paldeckForRow } from '@/components/modules/pal-species-selector'
 import { canToggleBossVariant, filterPalSkins, usePalEditorStore } from '@/stores/paleditor'
 const palStore = usePalEditorStore()
 const updateRange = (name, value) => palStore.updatePal({ target: { name, value } })
+const ivRandomMinimum = ref(40)
+
+const randomizeIVs = () => {
+  const minimum = Math.min(100, Math.max(1, Math.trunc(Number(ivRandomMinimum.value) || 40)))
+  ivRandomMinimum.value = minimum
+  palStore.randomizePalIVs(minimum)
+}
 
 const currentSkillIds = () => [
   ...(palStore.SELECTED_PAL_DATA.EquipWaza || []),
@@ -265,6 +274,20 @@ const portraitBorder = pal => pal.IsAwakening
               </button>
             </div>
           </div>
+          <div class="editor-field">
+            <span class="editor-field__label">{{ palStore.getTranslatedText("Editor_Favorite") }}</span>
+            <span class="editor-tag" v-if="palStore.SELECTED_PAL_DATA.IsFavoritePal">
+              {{ palStore.getTranslatedText("Editor_Favorite") }}
+            </span>
+            <div class="editor-field__actions">
+              <button
+                :class="['editor-button editor-button--secondary editor-button--icon editor-button--favorite', { 'is-active': palStore.SELECTED_PAL_DATA.IsFavoritePal }]"
+                @click="palStore.SELECTED_PAL_DATA.swapFavorite" name="IsFavoritePal"
+                :aria-label="palStore.getTranslatedText('Editor_Favorite')"
+                :aria-pressed="palStore.SELECTED_PAL_DATA.IsFavoritePal"
+                :disabled="palStore.LOADING_FLAG"><UiIcon name="heart" /></button>
+            </div>
+          </div>
           <div class="editor-field" v-if="!palStore.SELECTED_PAL_DATA.IsHuman">
             <span class="editor-field__label">{{ palStore.getTranslatedText("Editor_Variant") }}</span>
             <span class="editor-tag">
@@ -368,7 +391,20 @@ const portraitBorder = pal => pal.IsAwakening
     </section>
     <div class="pal-progression-grid">
       <section class="pal-panel editor-surface">
-        <h2 class="pal-panel__heading">{{ palStore.getTranslatedText("Editor_IV") }}</h2>
+        <div class="pal-panel__header">
+          <h2 class="pal-panel__heading">{{ palStore.getTranslatedText("Editor_IV") }}</h2>
+          <div class="iv-randomizer">
+            <label>
+              <span>{{ palStore.getTranslatedText("Editor_IV_Random_Minimum") }}</span>
+              <input v-model.number="ivRandomMinimum" name="ivRandomMinimum" type="number" min="1" max="100"
+                :disabled="palStore.LOADING_FLAG">
+            </label>
+            <button class="editor-button editor-button--primary" type="button" name="randomize_ivs"
+              @click="randomizeIVs" :disabled="palStore.LOADING_FLAG">
+              <UiIcon name="refresh" /> {{ palStore.getTranslatedText("Editor_IV_Randomize") }}
+            </button>
+          </div>
+        </div>
         <div class="range-grid">
           <label class="range-control">
             <span><img class="game-icon" :src="palStore.backendAssetUrl('/image/ui/stat-health')" alt=""> {{ palStore.getTranslatedText("Editor_IV_HP") }}</span>
@@ -723,6 +759,11 @@ const portraitBorder = pal => pal.IsAwakening
   object-fit: contain;
 }
 
+.editor-button--favorite.is-active {
+  border-color: var(--editor-color-lucky);
+  color: var(--editor-color-lucky);
+}
+
 .passive-tier {
   width: .65rem;
   height: .65rem;
@@ -782,6 +823,28 @@ const portraitBorder = pal => pal.IsAwakening
 .pal-panel__header .pal-panel__heading {
   padding-bottom: 0;
   border-bottom: 0;
+}
+
+.iv-randomizer,
+.iv-randomizer label {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-2);
+}
+
+.iv-randomizer label {
+  color: var(--editor-color-muted);
+  font-size: .8rem;
+}
+
+.iv-randomizer input {
+  width: 4.5rem;
+  min-height: 2rem;
+  padding: 0 var(--editor-space-2);
+  border: 1px solid var(--editor-color-border);
+  border-radius: var(--editor-radius-sm);
+  color: var(--editor-color-text);
+  background: var(--editor-color-control);
 }
 
 .range-grid,

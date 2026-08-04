@@ -22,6 +22,7 @@ const toggleLabel = () => palStore.getTranslatedText(props.preview ? 'PalList_Re
 const palListContainer = ref(null)
 const sortMenu = ref(null)
 const showAddPalDialog = ref(false)
+const supportsSortDirection = computed(() => !['location', 'priority'].includes(palStore.PAL_LIST_SORT))
 
 const closeSortMenuOnOutsidePointer = event => closeDisclosureOnOutsidePointer(sortMenu.value, event.target)
 onMounted(() => window.addEventListener('pointerdown', closeSortMenuOnOutsidePointer))
@@ -77,11 +78,13 @@ const visiblePals = computed(() => sortPalList(
     )),
   palStore.PAL_LIST_SORT,
   pal => paldeckForRow(palStore.PAL_STATIC_DATA[pal.DataAccessKeyOG]),
+  palStore.PAL_LIST_SORT_DIRECTION,
 ))
 
 watch(
   [
     () => palStore.PAL_LIST_SORT,
+    () => palStore.PAL_LIST_SORT_DIRECTION,
     () => palStore.PAL_LIST_PRIORITY_FILTER,
     () => palStore.PAL_LIST_EDITED_ONLY,
     () => palStore.PAL_LIST_CREATED_ONLY,
@@ -113,6 +116,9 @@ const palStatus = pal => palStore.getTranslatedText(`PalList_Status_${pal.IsBOSS
 
 const palWasCreated = pal => isCreatedPal(pal, palStore.CREATED_PAL_IDS)
 const palWasEdited = pal => isEditedPal(pal, palStore.EDITED_PAL_IDS, palStore.CREATED_PAL_IDS)
+const expStatus = pal => pal.ExpStatus
+  ? palStore.getTranslatedText(pal.ExpStatus === 'over_max' ? 'PalList_Exp_Over_Max' : 'PalList_Exp_Mismatch')
+  : ''
 </script>
 
 <template>
@@ -136,6 +142,16 @@ const palWasEdited = pal => isEditedPal(pal, palStore.EDITED_PAL_IDS, palStore.C
                 <option value="paldeck">{{ palStore.getTranslatedText('PalList_Sort_Paldeck') }}</option>
                 <option value="location">{{ palStore.getTranslatedText('PalList_Sort_Location') }}</option>
                 <option value="priority">{{ palStore.getTranslatedText('PalList_Sort_Priority') }}</option>
+                <option value="level">{{ palStore.getTranslatedText('PalList_Sort_Level') }}</option>
+                <option value="iv">{{ palStore.getTranslatedText('PalList_Sort_IV') }}</option>
+                <option value="name">{{ palStore.getTranslatedText('PalList_Sort_Name') }}</option>
+              </select>
+            </label>
+            <label>
+              <span>{{ palStore.getTranslatedText('PalList_Sort_Direction') }}</span>
+              <select v-model="palStore.PAL_LIST_SORT_DIRECTION" :disabled="!supportsSortDirection">
+                <option value="asc">{{ palStore.getTranslatedText('PalList_Sort_Ascending') }}</option>
+                <option value="desc">{{ palStore.getTranslatedText('PalList_Sort_Descending') }}</option>
               </select>
             </label>
             <label>
@@ -179,7 +195,7 @@ const palWasEdited = pal => isEditedPal(pal, palStore.EDITED_PAL_IDS, palStore.C
 
     <div class="roster-list" ref="palListContainer">
       <button v-for="pal in visiblePals" :key="pal.InstanceId"
-        :class="['pal-row', { male: palStore.genderKey(pal.Gender) === 'male', female: palStore.genderKey(pal.Gender) === 'female', unref: pal.Is_Unref_Pal, 'out-of-container': !pal.in_owner_palbox }]"
+        :class="['pal-row', { male: palStore.genderKey(pal.Gender) === 'male', female: palStore.genderKey(pal.Gender) === 'female', favorite: pal.IsFavoritePal, unref: pal.Is_Unref_Pal, 'out-of-container': !pal.in_owner_palbox, 'exp-over-max': pal.ExpStatus === 'over_max', 'exp-mismatch': pal.ExpStatus === 'mismatch' }]"
         :value="pal.InstanceId" @click="palStore.selectPal(pal.InstanceId)"
         :aria-current="palStore.SELECTED_PAL_ID == pal.InstanceId ? 'true' : undefined"
         :disabled="palStore.SELECTED_PAL_ID == pal.InstanceId || palStore.LOADING_FLAG">
@@ -208,11 +224,18 @@ const palWasEdited = pal => isEditedPal(pal, palStore.EDITED_PAL_IDS, palStore.C
         <span class="pal-copy">
           <strong class="pal-name">
             <span>{{ pal.DisplayName }}</span>
+            <span v-if="pal.FriendshipLevel !== 0" class="friendship-rank">{{ pal.FriendshipLevel }}</span>
+            <UiIcon v-if="pal.IsFavoritePal" class="favorite-status-icon" name="heart"
+              :title="palStore.getTranslatedText('PalList_Favorite')" />
+            <UiIcon v-if="pal.ExpStatus" class="exp-status-icon" name="warning" :title="expStatus(pal)" />
           </strong>
           <small>{{ palMetadata(pal) }}</small>
           <span class="sr-only">{{ palStatus(pal) }}</span>
           <span v-if="palWasCreated(pal)" class="sr-only">{{ palStore.getTranslatedText('PalList_Status_Unsaved') }}</span>
           <span v-else-if="palWasEdited(pal)" class="sr-only">{{ palStore.getTranslatedText('PalList_Status_Edited') }}</span>
+          <span v-if="pal.FriendshipLevel !== 0" class="sr-only">{{ palStore.getTranslatedText('PalList_Friendship_Rank') }} {{ pal.FriendshipLevel }}</span>
+          <span v-if="pal.IsFavoritePal" class="sr-only">{{ palStore.getTranslatedText('PalList_Favorite') }}</span>
+          <span v-if="pal.ExpStatus" class="sr-only">{{ expStatus(pal) }}</span>
         </span>
       </button>
     </div>
@@ -412,6 +435,8 @@ const palWasEdited = pal => isEditedPal(pal, palStore.EDITED_PAL_IDS, palStore.C
 .pal-row.unref { filter: grayscale(1); }
 .pal-row.out-of-container small { color: var(--editor-color-success); }
 .pal-row[aria-current="true"] small { color: var(--editor-color-muted); }
+.pal-row.exp-mismatch { border-color: var(--editor-color-warning); }
+.pal-row.exp-over-max { border-color: var(--editor-color-danger); }
 
 .new-pal-marker,
 .edited-pal-marker {
@@ -430,6 +455,20 @@ const palWasEdited = pal => isEditedPal(pal, palStore.EDITED_PAL_IDS, palStore.C
   background: var(--editor-color-success);
 }
 
+.friendship-rank {
+  display: grid;
+  min-width: 1rem;
+  height: 1rem;
+  place-items: center;
+  padding: 0 .15rem;
+  border: 1px solid var(--editor-color-background);
+  border-radius: 999px;
+  color: var(--editor-color-background);
+  background: var(--editor-color-warning);
+  font-size: .6rem;
+  font-weight: 700;
+}
+
 .pal-copy {
   display: grid;
   min-width: 0;
@@ -444,6 +483,20 @@ const palWasEdited = pal => isEditedPal(pal, palStore.EDITED_PAL_IDS, palStore.C
 .pal-name span {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.exp-status-icon {
+  flex: 0 0 auto;
+  color: var(--editor-color-warning);
+}
+
+.favorite-status-icon {
+  flex: 0 0 auto;
+  color: var(--editor-color-lucky);
+}
+
+.exp-over-max .exp-status-icon {
+  color: var(--editor-color-danger);
 }
 
 .pal-copy strong,

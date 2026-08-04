@@ -294,7 +294,23 @@ class DataProvider:
         except Exception:
             LOGGER.warning(f"Level {lv} is out of bounds.")
             return None
-        
+
+    @staticmethod
+    def get_pal_exp_table_max_level() -> int:
+        return max(int(level) for level in PAL_EXP_TABLE)
+
+    @staticmethod
+    def get_pal_exp_level(exp: int) -> Optional[int]:
+        levels = sorted(int(level) for level in PAL_EXP_TABLE)
+        for index, level in enumerate(levels):
+            total = PAL_EXP_TABLE[str(level)]["PalTotalEXP"]
+            if index == len(levels) - 1:
+                return level if exp >= total else None
+            next_total = PAL_EXP_TABLE[str(levels[index + 1])]["PalTotalEXP"]
+            if total <= exp < next_total:
+                return level
+        return None
+
     @staticmethod
     def get_pal_friendship(lv: str) -> Optional[int]:
         try:

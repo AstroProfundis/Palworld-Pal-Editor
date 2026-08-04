@@ -172,6 +172,43 @@ class PalIdentityTests(unittest.TestCase):
 
         self.assertTrue(payload["IsNewPal"])
 
+    def test_pal_data_serializes_save_backed_favorite_state(self):
+        pal = self.make_pal("SheepBall")
+        self.assertFalse(_pal_data(pal)["IsFavoritePal"])
+
+        pal.IsFavoritePal = True
+
+        self.assertTrue(_pal_data(pal)["IsFavoritePal"])
+
+    def test_favorite_patch_rejects_non_boolean_values(self):
+        pal = self.make_pal("SheepBall")
+
+        class Manager:
+            @staticmethod
+            def get_working_pal(_pal_id):
+                return pal
+
+        app.config["JWT_SECRET_KEY"] = "test-secret-key-with-at-least-32-bytes"
+        with app.app_context():
+            token = create_access_token(identity="test", expires_delta=False)
+        with (
+            patch("palworld_pal_editor.api.pal.SaveManager", return_value=Manager()),
+            app.test_client() as client,
+        ):
+            response = client.patch(
+                "/api/pal/paldata",
+                json={
+                    "PalGuid": "pal",
+                    "PlayerUId": "PAL_BASE_WORKER_BTN",
+                    "key": "IsFavoritePal",
+                    "value": "true",
+                },
+                headers={"Authorization": f"Bearer {token}"},
+            )
+
+        self.assertEqual(1, response.get_json()["status"])
+        self.assertIsNone(pal.IsFavoritePal)
+
     def test_pal_list_includes_awakened_and_new_state_before_selection(self):
         pal = self.make_pal("SheepBall")
         pal.IsAwakening = True
@@ -206,6 +243,7 @@ class PalIdentityTests(unittest.TestCase):
         pal.InstanceId = "33333333-3333-3333-3333-333333333333"
         pal.SlotId = (str(party_id), 4)
         pal._pal_param["FavoriteIndex"] = PalObjects.IntProperty(3)
+        pal.IsFavoritePal = True
 
         class Player:
             OtomoCharacterContainerId = party_id
@@ -240,6 +278,7 @@ class PalIdentityTests(unittest.TestCase):
         self.assertEqual(4, pal_summary["SlotIndex"])
         self.assertEqual("party", pal_summary["ContainerKind"])
         self.assertEqual(3, pal_summary["FavoriteIndex"])
+        self.assertTrue(pal_summary["IsFavoritePal"])
 
         pal._pal_param["FavoriteIndex"] = PalObjects.ByteProperty(2)
         self.assertEqual(2, pal.FavoriteIndex)

@@ -19,10 +19,10 @@ globalThis.localStorage = {
 after(closeVueServer);
 
 const pals = [
-  { InstanceId: "ordinary", DisplayName: "Ordinary Pal", IsNewPal: true },
-  { InstanceId: "alpha", DisplayName: "Alpha Pal", IsBOSS: true },
-  { InstanceId: "lucky", DisplayName: "Lucky Pal", IsRarePal: true },
-  { InstanceId: "both", DisplayName: "Alpha Lucky Pal", IsBOSS: true, IsRarePal: true },
+  { InstanceId: "ordinary", DisplayName: "Ordinary Pal", IsNewPal: true, FriendshipLevel: 3, IsFavoritePal: true },
+  { InstanceId: "alpha", DisplayName: "Alpha Pal", IsBOSS: true, FriendshipLevel: -2 },
+  { InstanceId: "lucky", DisplayName: "Lucky Pal", IsRarePal: true, ExpStatus: "mismatch" },
+  { InstanceId: "both", DisplayName: "Alpha Lucky Pal", IsBOSS: true, IsRarePal: true, ExpStatus: "over_max" },
 ].map(pal => ({
   CharacterID: "TestPal",
   DataAccessKeyOG: "TestPal",
@@ -62,6 +62,14 @@ test("Pal rows render translated accessible status text for every Alpha and Luck
   }
   assert.match(row(html, "ordinary"), /class="new-pal-marker"/);
   assert.match(row(html, "ordinary"), /New, unsaved Pal/);
+  assert.match(row(html, "ordinary"), /class="friendship-rank"[^>]*>3<\/span>/);
+  assert.match(row(html, "ordinary"), /Trust rank 3/);
+  assert.match(row(html, "alpha"), /class="friendship-rank"[^>]*>-2<\/span>/);
+  assert.match(row(html, "alpha"), /Trust rank -2/);
+  assert.match(row(html, "ordinary"), /class="[^"]*favorite-status-icon[^"]*"/);
+  assert.match(row(html, "ordinary"), /Favorite Pal/);
+  assert.match(row(html, "lucky"), /Exp does not match the current level\./);
+  assert.match(row(html, "both"), /Exp exceeds the max level cap/);
   assert.doesNotMatch(row(html, "alpha"), /class="new-pal-marker"|New, unsaved Pal/);
 });
 
@@ -103,6 +111,11 @@ test("Pal row status phrases are translated in all UI locales", () => {
   assert.equal(fr.PalList_Status_Unsaved, "Nouveau Pal non enregistré");
   assert.equal(ja.PalList_Status_Unsaved, "未保存の新しいパル");
   assert.equal(zhCN.PalList_Status_Unsaved, "未保存的新帕鲁");
+  assert.equal(en.PalList_Friendship_Rank, "Trust rank");
+  assert.equal(en.PalList_Favorite, "Favorite Pal");
+  assert.equal(fr.PalList_Exp_Mismatch, "L'EXP ne correspond pas au niveau actuel.");
+  assert.equal(ja.PalList_Exp_Over_Max, "経験値が最大レベルの上限を超えています。このパルは経験値を獲得できません。");
+  assert.equal(zhCN.PalList_Exp_Mismatch, "经验与当前等级不匹配。");
 });
 
 test("Pal reselection scrolls only as far as needed inside the roster", async () => {
@@ -118,6 +131,7 @@ test("Pal sort and filter controls dismiss outside and escape adjacent rails", a
   ]);
   assert.match(source, /import \{ closeDisclosureOnOutsidePointer \} from/);
   assert.match(source, /ref="sortMenu"/);
+  assert.match(source, /:disabled="!supportsSortDirection"/);
   assert.match(source, /window\.addEventListener\('pointerdown', closeSortMenuOnOutsidePointer\)/);
   assert.match(source, /window\.removeEventListener\('pointerdown', closeSortMenuOnOutsidePointer\)/);
   assert.match(source, /\.pal-list-menu__popover\s*\{[^}]*left:\s*0;/s);

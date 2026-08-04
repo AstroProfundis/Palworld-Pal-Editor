@@ -26,14 +26,36 @@ export const matchesPalSessionFilter = (
   ? isCreatedPal(pal, createdIds)
   : !editedOnly || isEditedPal(pal, editedIds, createdIds);
 
-export function sortPalList(pals, mode = "paldeck", paldeckFor = pal => pal.Paldeck) {
+const ivTotal = pal => Number(pal.Talent_HP ?? 0)
+  + Number(pal.Talent_Shot ?? 0)
+  + Number(pal.Talent_Defense ?? 0);
+
+export function sortPalList(
+  pals,
+  mode = "paldeck",
+  paldeckFor = pal => pal.Paldeck,
+  direction = "asc",
+) {
+  const directionMultiplier = direction === "desc" ? -1 : 1;
   return [...pals].sort((left, right) => {
+    if (mode === "level" || mode === "iv") {
+      const value = mode === "level"
+        ? Number(left.Level ?? 0) - Number(right.Level ?? 0)
+        : ivTotal(left) - ivTotal(right);
+      if (value) return value * directionMultiplier;
+    }
+
+    if (mode === "name") {
+      const name = textOrder(left.DisplayName, right.DisplayName);
+      if (name) return name * directionMultiplier;
+    }
+
     if (mode === "priority") {
       const priority = Number(right.FavoriteIndex ?? 0) - Number(left.FavoriteIndex ?? 0);
       if (priority) return priority;
     }
 
-    if (mode !== "paldeck") {
+    if (mode === "location" || mode === "priority") {
       const location = (locationOrder[left.ContainerKind] ?? 2)
         - (locationOrder[right.ContainerKind] ?? 2);
       if (location) return location;
@@ -50,7 +72,7 @@ export function sortPalList(pals, mode = "paldeck", paldeckFor = pal => pal.Pald
       const missing = Number(!leftPaldeck) - Number(!rightPaldeck);
       if (missing) return missing;
       const paldeck = textOrder(leftPaldeck, rightPaldeck);
-      if (paldeck) return paldeck;
+      if (paldeck) return paldeck * directionMultiplier;
     }
 
     return textOrder(left.InstanceId, right.InstanceId);

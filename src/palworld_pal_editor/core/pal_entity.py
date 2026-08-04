@@ -1,4 +1,5 @@
 import math
+import random
 from typing import Optional
 from palworld_save_tools.archive import UUID
 from palworld_pal_editor.config import Config
@@ -609,6 +610,19 @@ class PalEntity:
             PalObjects.set_BaseType(self._pal_param["Exp"], value)
 
     @property
+    def ExpStatus(self) -> Optional[str]:
+        exp = self.Exp
+        if exp is None:
+            return None
+        max_level = DataProvider.get_pal_exp_table_max_level()
+        if exp > (DataProvider.get_pal_level_xp(max_level) or 0):
+            return "over_max"
+        implied_level = DataProvider.get_pal_exp_level(exp)
+        if implied_level is None or implied_level != (self.Level or 1):
+            return "mismatch"
+        return None
+
+    @property
     def FriendshipLevel(self) -> Optional[int]:
         return DataProvider.get_pal_friendship_level_from_pts(self.FriendshipPoint or 0)
 
@@ -1099,6 +1113,21 @@ class PalEntity:
     @type_guard
     def Talent_Defense(self, value: int):
         self._set_iv("Talent_Defense", value)
+
+    def randomize_ivs(self, minimum: int = 40) -> dict[str, int]:
+        if not isinstance(minimum, int) or isinstance(minimum, bool):
+            raise TypeError("IV minimum must be an integer.")
+        if not 1 <= minimum <= 100:
+            raise ValueError("IV minimum must be between 1 and 100.")
+
+        values = {
+            "Talent_HP": random.randint(minimum, 100),
+            "Talent_Shot": random.randint(minimum, 100),
+            "Talent_Defense": random.randint(minimum, 100),
+        }
+        for name, value in values.items():
+            setattr(self, name, value)
+        return values
 
     # @property
     # def CraftSpeed(self) -> Optional[int]:

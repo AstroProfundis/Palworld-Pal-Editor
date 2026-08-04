@@ -114,6 +114,15 @@ def patch_paldata():
                         None,
                         f"Too many skills, or skill {value} already exists! Or we can't find it in database.",
                     )
+            case "randomize_ivs":
+                try:
+                    pal_entity.randomize_ivs(value)
+                except (TypeError, ValueError) as error:
+                    return reply(1, None, str(error))
+            case "IsFavoritePal":
+                if not isinstance(value, bool):
+                    return reply(1, None, "IsFavoritePal must be a boolean")
+                pal_entity.IsFavoritePal = value
             case "in_owner_palbox":
                 if PlayerUId == "PAL_BASE_WORKER_BTN":
                     return reply(1, None, f"Moving pal to basecamp is unsupported.")
@@ -195,6 +204,8 @@ def _pal_data(pal: PalEntity):
         "SkinName": pal.SkinName or "",
         "Gender": pal.Gender.value if pal.Gender else None,
         "Level": pal.Level or 1,
+        "Exp": pal.Exp or 0,
+        "ExpStatus": pal.ExpStatus,
         "FriendshipLevel": pal.FriendshipLevel or 0,
         "HasBaseVariant": pal.HasBaseVariant,
         "HasBossVariant": pal.HasBossVariant,
@@ -216,6 +227,7 @@ def _pal_data(pal: PalEntity):
         "IsOilrig": pal.IsOilrig or False,
         "IsOtomoTower": pal.IsOtomoTower or False,
         "IsExpeditionPal": pal.IsExpeditionPal,
+        "IsFavoritePal": bool(pal.IsFavoritePal),
         "ComputedMaxHP": pal.ComputedMaxHP or None,
         "ComputedAttack": pal.ComputedAttack or None,
         "ComputedDefense": pal.ComputedDefense or None,

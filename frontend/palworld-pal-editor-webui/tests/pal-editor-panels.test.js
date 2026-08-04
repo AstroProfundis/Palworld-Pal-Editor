@@ -42,3 +42,15 @@ test("all Pal edit contracts and validity rules remain available", () => {
   assert.match(source, /skillBadgeLabels/);
   assert.match(source, /canToggleBossVariant/);
 });
+
+test("IV panel exposes bounded randomization controls", () => {
+  assert.match(source, /name="ivRandomMinimum"[\s\S]*?type="number"[\s\S]*?min="1"[\s\S]*?max="100"/);
+  assert.match(source, /name="randomize_ivs"/);
+  assert.match(source, /palStore\.randomizePalIVs\(minimum\)/);
+});
+
+test("Pal editor exposes the save-backed favorite toggle", () => {
+  assert.match(source, /name="IsFavoritePal"/);
+  assert.match(source, /palStore\.SELECTED_PAL_DATA\.swapFavorite/);
+  assert.match(source, /Editor_Favorite/);
+});

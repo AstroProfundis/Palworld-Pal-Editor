@@ -50,6 +50,13 @@ def get_player_pals():
                 "IsRarePal": pal.IsRarePal or False,
                 "IsAwakening": pal.IsAwakening,
                 "IsNewPal": pal.is_new_pal,
+                "Level": pal.Level or 1,
+                "Exp": pal.Exp or 0,
+                "ExpStatus": pal.ExpStatus,
+                "FriendshipLevel": pal.FriendshipLevel or 0,
+                "Talent_HP": pal.Talent_HP or 0,
+                "Talent_Shot": pal.Talent_Shot or 0,
+                "Talent_Defense": pal.Talent_Defense or 0,
                 "ContainerId": str(pal.ContainerId) if pal.ContainerId else None,
                 "SlotIndex": pal.SlotIndex,
                 "ContainerKind": (
@@ -60,6 +67,7 @@ def get_player_pals():
                     else "other"
                 ),
                 "FavoriteIndex": pal.FavoriteIndex,
+                "IsFavoritePal": bool(pal.IsFavoritePal),
                 # "NickName": pal.NickName or "",
                 # "Level": pal.Level or 1,
                 # "Rank": pal.Rank.value if pal.Rank else 1,
