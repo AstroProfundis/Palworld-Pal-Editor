@@ -31,9 +31,22 @@
 
 <a href="https://github.com/KrisCris/Palworld-Pal-Editor/stargazers"><img width="720" alt="Star History Chart" src="https://api.star-history.com/svg?repos=KrisCris/Palworld-Pal-Editor&type=Date"></a>&nbsp;
 
+> [!NOTE]
+> 本仓库是 [KrisCris/Palworld-Pal-Editor](https://github.com/KrisCris/Palworld-Pal-Editor) 的 fork，在尽量保持上游代码与 Git 历史兼容的基础上增加了以下功能：
+>
+> - **Palworld 1.0 数据修复** — 同步帕鲁、技能、科技、经验与被动词条数据
+> - **公会研究编辑** — 查看并编辑各公会已经存在的研究所科技树
+> - **按基地组织帕鲁列表** — 按基地分组工作帕鲁，显示未分配工作帕鲁与基地信息
+> - **帕鲁编辑与列表增强** — IV 随机化、收藏与信赖等级标记、经验异常诊断及更多排序方式
+>
+> **免责吐槽：** 本 fork 的所有修改都是大语言模型（LLM）生成的喵！笨蛋主人完全不懂什么游戏存档编辑，全都是 LLM 搞定的喵～
+
 ## 支持的语言
 
 - **English** | **日本語** | **简体中文** | **French**
+
+> [!NOTE]
+> **游戏版本兼容性：** 本 fork 支持《幻兽帕鲁》1.0 存档，以及对应的帕鲁、被动技能、主动技能、科技、经验、公会研究和基地数据。
 
 ## 这是什么？
 
@@ -44,6 +57,8 @@
 - [An old showcase video posted on youtube](https://youtu.be/v9U60jj5Ugw), the idea should be the same though.
 
 > [!NOTE]
+> 当前尚不支持道具背包编辑。下文中的“背包”仅指帕鲁容器。
+>
 > 帕鲁 Steam 版 本地游戏 存档文件夹: `%localappdata%\Pal\Saved\SaveGames`
 >
 > 你要修改的存档文件夹: `%localappdata%\Pal\Saved\SaveGames\[你的 Steam ID]\[你的 游戏存档 ID]`
@@ -122,6 +137,7 @@
 
 - [ ] 用户可以自定义的技能预设组合。
 - [ ] 完善玩家背包和容器实现，为所有容器类型提供准确标签，并支持切换帕鲁所有者。
+- [ ] 道具背包编辑。
 - [ ] 用户界面。。。
 
 ## 使用
