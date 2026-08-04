@@ -28,17 +28,6 @@ const closeSortMenuOnOutsidePointer = event => closeDisclosureOnOutsidePointer(s
 onMounted(() => window.addEventListener('pointerdown', closeSortMenuOnOutsidePointer))
 onBeforeUnmount(() => window.removeEventListener('pointerdown', closeSortMenuOnOutsidePointer))
 
-watch(async () => palStore.SELECTED_PLAYER_ID, async () => {
-  await nextTick()
-  if (palStore.SHOW_PLAYER_EDIT_FLAG && !palStore.BASE_PAL_BTN_CLK_FLAG) return
-  try {
-    if (palStore.BASE_PAL_BTN_CLK_FLAG == false) return
-    palListContainer.value.querySelector('button:not(:disabled)')?.click()
-  } catch (error) {
-    return
-  }
-})
-
 watch(async () => palStore.UPDATE_PAL_RESELECT_CTR, async () => {
   await nextTick()
   try {

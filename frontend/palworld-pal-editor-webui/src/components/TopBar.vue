@@ -46,7 +46,11 @@ const save = async () => {
   if (await palStore.writeSave()) await donate()
 }
 
-const playerCount = computed(() => palStore.PLAYER_MAP.size + (palStore.HAS_WORKING_PAL_FLAG ? 1 : 0))
+const openGuildResearch = () => palStore.openGuildResearch()
+
+const playerCount = computed(() => palStore.PLAYER_MAP.size
+  + palStore.BASES.size
+  + (palStore.HAS_UNASSIGNED_WORKING_PAL ? 1 : 0))
 const palCount = computed(() => palStore.PAL_MAP.size)
 const hasPalRoster = computed(() => palStore.SELECTED_PLAYER_ID || palStore.BASE_PAL_BTN_CLK_FLAG)
 </script>
@@ -89,6 +93,10 @@ const hasPalRoster = computed(() => palStore.SELECTED_PLAYER_ID || palStore.BASE
         <details v-if="palStore.SAVE_LOADED_FLAG" class="editor-more">
           <summary class="op"><UiIcon name="more" /> {{ palStore.getTranslatedText("TopBar_More") }}</summary>
           <div class="editor-more__menu">
+            <button v-if="palStore.RESEARCH_SUPPORTED" class="op" @click="openGuildResearch"
+              :disabled="palStore.LOADING_FLAG">
+              <UiIcon name="branch" /> {{ palStore.getTranslatedText("TopBar_Btn_Guild_Research") }}
+            </button>
             <button :class="['op', { toggled: palStore.SHOW_OOB_PAL_FLAG }]"
               @click="palStore.SHOW_OOB_PAL_FLAG = !palStore.SHOW_OOB_PAL_FLAG"
               :aria-pressed="palStore.SHOW_OOB_PAL_FLAG" :disabled="palStore.LOADING_FLAG"

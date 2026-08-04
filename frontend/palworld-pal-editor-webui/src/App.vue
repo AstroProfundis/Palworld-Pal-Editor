@@ -15,6 +15,7 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue'
 
 import MarkdownModal from '@/components/MarkdownModal.vue'
 import MessageCenter from '@/components/MessageCenter.vue'
+import GuildResearchModal from '@/components/GuildResearchModal.vue'
 import TopBar from '@/components/TopBar.vue'
 import { usePalEditorStore } from '@/stores/paleditor'
 import AuthView from '@/views/AuthView.vue'
@@ -93,6 +94,8 @@ onMounted(palStore.bootstrap)
     @dismiss="palStore.clearBackendError"
   />
   <MessageCenter v-if="!palStore.BACKEND_ERROR" />
+  <GuildResearchModal v-if="palStore.SHOW_RESEARCH_FLAG && !palStore.BACKEND_ERROR"
+    @close="palStore.SHOW_RESEARCH_FLAG = false" />
 </template>
 
 <style scoped>

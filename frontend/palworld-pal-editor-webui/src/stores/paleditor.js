@@ -522,6 +522,22 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         }
     }
 
+    class Base {
+        constructor(obj) {
+            this.Id = obj.Id;
+            this.Name = obj.Name;
+            this.GuildId = obj.GuildId;
+            this.GuildName = obj.GuildName;
+            this.BaseCampLevel = obj.BaseCampLevel;
+            this.WorkerCount = obj.WorkerCount ?? 0;
+            this.WorldTranslation = obj.WorldTranslation ?? null;
+            this.MapCoordinates = obj.MapCoordinates ?? null;
+            this.ContainerId = obj.ContainerId;
+            this.pals = new Map();
+            this.palsLoaded = false;
+        }
+    }
+
     const PAL_BASE_WORKER_BTN = ref("PAL_BASE_WORKER_BTN");
 
     const TECH_LV_DICT = ref({});
@@ -533,6 +549,8 @@ export const usePalEditorStore = defineStore("paleditor", () => {
     const PAL_STATIC_DATA_LIST = ref([]);
     const SKIN_DATA_LIST = ref([]);
     const PAL_TEMPLATES = ref([]);
+    const RESEARCH_CATEGORIES = ref([]);
+    const RESEARCH_SUPPORTED = ref(false);
     const I18nList = ref(GAME_LANGUAGES);
 
     // flags
@@ -540,6 +558,8 @@ export const usePalEditorStore = defineStore("paleditor", () => {
     const LOADING_FLAG = ref(false);
     const SAVE_LOADED_FLAG = ref(false);
     const HAS_WORKING_PAL_FLAG = ref(false);
+    const HAS_UNASSIGNED_WORKING_PAL = ref(false);
+    const LEGACY_BASE_WORKER_MODE = ref(false);
     const BASE_PAL_BTN_CLK_FLAG = ref(false);
     const SHOW_PLAYER_EDIT_FLAG = ref(false);
     // const ADD_PAL_RESELECT_CTR = ref(0);
@@ -549,6 +569,7 @@ export const usePalEditorStore = defineStore("paleditor", () => {
     const SHOW_OOB_PAL_FLAG = ref(true);
     const HIDE_INVALID_OPTIONS = ref(true);
     const PAL_SAVE_DETAILS_OPEN = ref(false);
+    const SHOW_RESEARCH_FLAG = ref(false);
 
     const PAL_LIST_SEARCH_KEYWORD = ref("");
     const PAL_LIST_SORT = ref("paldeck");
@@ -563,6 +584,8 @@ export const usePalEditorStore = defineStore("paleditor", () => {
 
     // data
     const BASE_PAL_MAP = ref(new Map());
+    const BASES = ref(new Map());
+    const UNASSIGNED_BASE_PALS = ref(new Map());
     const PLAYER_MAP = ref(new Map());
     const PAL_PASSIVE_SELECTED_ITEM = ref("");
     const PAL_ACTIVE_SELECTED_ITEM = ref("");
@@ -571,9 +594,52 @@ export const usePalEditorStore = defineStore("paleditor", () => {
     const SELECTED_PAL_DATA = ref(new Map());
     const SELECTED_PLAYER_DATA = ref(new Map());
     const PAL_MAP = ref(new Map());
+    const GUILD_LIST = ref([]);
+    const SELECTED_RESEARCH_GUILD_ID = ref("");
+    const LOADED_RESEARCH_GUILD_ID = ref("");
+    const SELECTED_GUILD_RESEARCH = ref({
+        completed_research_ids: [],
+        current_research_id: "None",
+        work_amounts: {},
+    });
+    const GUILD_RESEARCH_NO_LAB = ref(false);
+    const GUILD_RESEARCH_LOADING = ref(false);
+    let ownerSelectionRequestId = 0;
+    let ownerSelectionLoadingCount = 0;
+    let ownerSelectionOwnsLoading = false;
+    let guildResearchRequestId = 0;
+    let guildResearchLoadingCount = 0;
+    let guildResearchOpenRequestId = 0;
+
+    function beginGuildResearchRequest() {
+        guildResearchLoadingCount += 1;
+        GUILD_RESEARCH_LOADING.value = true;
+    }
+
+    function endGuildResearchRequest() {
+        guildResearchLoadingCount = Math.max(0, guildResearchLoadingCount - 1);
+        GUILD_RESEARCH_LOADING.value = guildResearchLoadingCount > 0;
+    }
+
+    function beginOwnerSelection() {
+        if (ownerSelectionLoadingCount === 0 && !LOADING_FLAG.value) {
+            ownerSelectionOwnsLoading = true;
+            LOADING_FLAG.value = true;
+        }
+        ownerSelectionLoadingCount += 1;
+    }
+
+    function endOwnerSelection() {
+        ownerSelectionLoadingCount = Math.max(0, ownerSelectionLoadingCount - 1);
+        if (ownerSelectionLoadingCount === 0 && ownerSelectionOwnsLoading) {
+            ownerSelectionOwnsLoading = false;
+            LOADING_FLAG.value = false;
+        }
+    }
 
     // selected id
     const SELECTED_PLAYER_ID = ref(null);
+    const SELECTED_BASE_ID = ref(null);
     const SELECTED_PAL_ID = ref(null);
 
     // TODO Get rid of this...
@@ -700,9 +766,10 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         if (error.response) {
             const message = `${error.response.statusText}: ${error.response.status}`;
             console.log(message);
-            return typeof error.response.data === "object"
+            const payload = typeof error.response.data === "object"
                 ? error.response.data
                 : { msg: message };
+            return { ...payload, httpStatus: error.response.status };
         }
         LOADING_FLAG.value = false;
         reportFrontendError(error, method);
@@ -776,6 +843,8 @@ export const usePalEditorStore = defineStore("paleditor", () => {
     }
 
     function requireAuth(messageKey = "") {
+        guildResearchOpenRequestId += 1;
+        SHOW_RESEARCH_FLAG.value = false;
         auth_token = "";
         removeStorage(localStorage, storageKey("PAL_AUTH_TOKEN"));
         AUTH_MESSAGE_KEY.value = messageKey;
@@ -1043,28 +1112,55 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         if (IS_LOCKED.value || BACKEND_ERROR.value) return true;
 
         sorryandfuckyou();
-        let no_set_loading_flag = LOADING_FLAG.value;
+        const no_set_loading_flag = LOADING_FLAG.value;
         if (!no_set_loading_flag) LOADING_FLAG.value = true;
 
-        const response = await PATCH("/api/save/i18n", { I18n: I18n.value });
-        if (response === false) return false;
+        try {
+            const response = await PATCH("/api/save/i18n", { I18n: I18n.value });
+            if (response === false) return false;
 
-        if (response.status == 0) {
-            // if on pal editor panel, refresh all translated texts (except for hardcoded ui)
-            if (SAVE_LOADED_FLAG.value) {
-                PLAYER_MAP.value.forEach((player, playerUId) => {
-                    fetchPlayerPal(playerUId);
-                });
-                fetchPlayerPal(PAL_BASE_WORKER_BTN.value);
-                await fetchStaticData();
+            if (response.status == 0) {
+                // Refresh owner summaries atomically so a failed request cannot mix locales.
+                if (SAVE_LOADED_FLAG.value) {
+                    const ownerMaps = [
+                        ...[...PLAYER_MAP.value.values()].map(player => player.pals),
+                        ...[...BASES.value.values()].map(base => base.pals),
+                    ];
+                    if (HAS_UNASSIGNED_WORKING_PAL.value) {
+                        ownerMaps.push(UNASSIGNED_BASE_PALS.value);
+                    }
+                    const snapshots = ownerMaps.map(map => new Map(map));
+                    const refreshes = [];
+                    PLAYER_MAP.value.forEach((player, playerUId) => {
+                        refreshes.push(fetchPlayerPal(playerUId));
+                    });
+                    BASES.value.forEach(base => {
+                        refreshes.push(fetchBasePals(base.Id));
+                    });
+                    if (HAS_UNASSIGNED_WORKING_PAL.value) {
+                        refreshes.push(fetchUnassignedBasePals());
+                    }
+                    const results = await Promise.all(refreshes);
+                    if (results.some(result => !result)) {
+                        ownerMaps.forEach((map, index) => {
+                            map.clear();
+                            snapshots[index].forEach((pal, id) => map.set(id, pal));
+                        });
+                        return false;
+                    }
+                    if (!await fetchStaticData()) return false;
+                }
+                return true;
             }
-        } else if (response.status == 2) {
-            requireAuth("AuthView_Session_Expired");
-        } else {
-            setBackendError(getTranslatedText("BackendError_Request_Failed", [response.msg]));
+            if (response.status == 2) {
+                requireAuth("AuthView_Session_Expired");
+            } else {
+                setBackendError(getTranslatedText("BackendError_Request_Failed", [response.msg]));
+            }
+            return false;
+        } finally {
+            if (!no_set_loading_flag) LOADING_FLAG.value = false;
         }
-        if (!no_set_loading_flag) LOADING_FLAG.value = false;
-        return response.status == 0;
     }
 
     async function fetchStaticData() {
@@ -1136,23 +1232,66 @@ export const usePalEditorStore = defineStore("paleditor", () => {
             setBackendError(getTranslatedText("BackendError_Request_Failed", [skin_data_raw.msg]));
             return false;
         }
+
+        const research_data_raw = await GET("/api/save/research_data");
+        if (research_data_raw === false) return false;
+        if (research_data_raw.status == 0) {
+            RESEARCH_CATEGORIES.value = research_data_raw.data.researchCategories;
+            RESEARCH_SUPPORTED.value = true;
+        } else if (
+            typeof research_data_raw === "string"
+            || research_data_raw.httpStatus == 404
+        ) {
+            RESEARCH_CATEGORIES.value = [];
+            RESEARCH_SUPPORTED.value = false;
+        } else if (research_data_raw.status == 2) {
+            requireAuth("AuthView_Session_Expired");
+            return false;
+        } else {
+            setBackendError(getTranslatedText("BackendError_Request_Failed", [research_data_raw.msg]));
+            return false;
+        }
         if (!no_set_loading_flag) LOADING_FLAG.value = false;
         return true;
     }
 
     function reset(updateAppState = true) {
+        ownerSelectionRequestId += 1;
+        ownerSelectionLoadingCount = 0;
+        ownerSelectionOwnsLoading = false;
         LOADING_FLAG.value = false;
         HAS_WORKING_PAL_FLAG.value = false;
+        HAS_UNASSIGNED_WORKING_PAL.value = false;
+        LEGACY_BASE_WORKER_MODE.value = false;
         SAVE_LOADED_FLAG.value = false;
         BASE_PAL_BTN_CLK_FLAG.value = false;
         SELECTED_PAL_ID.value = null;
         SELECTED_PLAYER_ID.value = null;
+        SELECTED_BASE_ID.value = null;
 
         BASE_PAL_MAP.value = new Map();
+        BASES.value = new Map();
+        UNASSIGNED_BASE_PALS.value = new Map();
         PLAYER_MAP.value = new Map();
         PAL_PASSIVE_SELECTED_ITEM.value = "";
         PAL_ACTIVE_SELECTED_ITEM.value = "";
         PAL_TEMPLATES.value = [];
+        RESEARCH_CATEGORIES.value = [];
+        RESEARCH_SUPPORTED.value = false;
+        GUILD_LIST.value = [];
+        SELECTED_RESEARCH_GUILD_ID.value = "";
+        LOADED_RESEARCH_GUILD_ID.value = "";
+        SELECTED_GUILD_RESEARCH.value = {
+            completed_research_ids: [],
+            current_research_id: "None",
+            work_amounts: {},
+        };
+        GUILD_RESEARCH_NO_LAB.value = false;
+        guildResearchLoadingCount = 0;
+        guildResearchRequestId += 1;
+        guildResearchOpenRequestId += 1;
+        GUILD_RESEARCH_LOADING.value = false;
+        SHOW_RESEARCH_FLAG.value = false;
 
         PAL_LIST_SEARCH_KEYWORD.value = "";
         PAL_LIST_SORT.value = "paldeck";
@@ -1275,17 +1414,29 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         if (response === false) return false;
 
         if (response.status == 0) {
-            if (response.data.hasWorkingPal) {
-                HAS_WORKING_PAL_FLAG.value = true;
-            }
+            PLAYER_MAP.value.clear();
+            BASES.value.clear();
+            HAS_WORKING_PAL_FLAG.value = response.data.hasWorkingPal === true;
+            LEGACY_BASE_WORKER_MODE.value = response.data.bases === undefined
+                && response.data.hasUnassignedWorkingPal === undefined
+                && response.data.hasWorkingPal === true;
+            HAS_UNASSIGNED_WORKING_PAL.value = LEGACY_BASE_WORKER_MODE.value
+                || response.data.hasUnassignedWorkingPal === true;
 
             for (let player of response.data.players) {
                 let p = new Player(player);
                 PLAYER_MAP.value.set(p.InstanceId, p);
-                // console.log(`Found player: ${p.NickName} - ${p.InstanceId}`);
+            }
+            for (let base of response.data.bases ?? []) {
+                let b = new Base(base);
+                BASES.value.set(b.Id, b);
             }
 
-            if (PLAYER_MAP.value.size <= 0 && !HAS_WORKING_PAL_FLAG.value) {
+            if (
+                PLAYER_MAP.value.size <= 0
+                && BASES.value.size <= 0
+                && !HAS_UNASSIGNED_WORKING_PAL.value
+            ) {
                 showToast("Message_No_Player");
             }
         } else if (response.status == 2) {
@@ -1340,12 +1491,19 @@ export const usePalEditorStore = defineStore("paleditor", () => {
             if (!await updateI18n()) return false;
             if (!await loadPlayers()) return false;
             if (!await fetchStaticData()) return false;
-            const defaultPlayer = HAS_WORKING_PAL_FLAG.value
-                ? PAL_BASE_WORKER_BTN.value
-                : PLAYER_MAP.value.keys().next().value;
-            if (defaultPlayer !== undefined) await selectPlayer(defaultPlayer);
-            const defaultPal = PAL_MAP.value.keys().next().value;
-            if (defaultPal !== undefined) await selectPal(defaultPal);
+            const defaultBase = BASES.value.keys().next().value;
+            if (defaultBase !== undefined) {
+                if (!await selectBase(defaultBase)) return false;
+            } else if (HAS_UNASSIGNED_WORKING_PAL.value) {
+                if (!await selectUnassignedWorkers()) return false;
+            } else {
+                const defaultPlayer = PLAYER_MAP.value.keys().next().value;
+                if (defaultPlayer !== undefined) {
+                    await selectPlayer(defaultPlayer);
+                    const defaultPal = PAL_MAP.value.keys().next().value;
+                    if (defaultPal !== undefined) await selectPal(defaultPal);
+                }
+            }
             SAVE_LOADED_FLAG.value = true;
             IS_LOCKED.value = false;
             APP_STATE.value = "editor";
@@ -1376,30 +1534,18 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         return retval;
     }
 
-    async function fetchPlayerPal(playerUId) {
+    async function fetchOwnerPals(requestBody, map) {
         let no_set_loading_flag = LOADING_FLAG.value;
         if (!no_set_loading_flag) LOADING_FLAG.value = true;
-        const response = await POST("/api/player/player_pals", {
-            PlayerUId: playerUId,
-        });
-        if (response === false) return;
+        const response = await POST("/api/player/player_pals", requestBody);
+        if (response === false) return false;
 
         if (response.status == 0) {
-            // get old map
-            let map =
-                playerUId == PAL_BASE_WORKER_BTN.value
-                    ? BASE_PAL_MAP.value
-                    : PLAYER_MAP.value.get(playerUId).pals;
-            // clear old map
             map.clear();
-            // insert new data
             for (let pal of response.data) {
                 let pal_data = new PalData(pal);
                 if (pal_data.IsNewPal) CREATED_PAL_IDS.value.add(pal_data.InstanceId);
                 map.set(pal_data.InstanceId, pal_data);
-                // console.log(
-                //   `Pal Loaded: ${pal_data.DisplayName} - ${pal_data.InstanceId}`
-                // );
             }
         } else if (response.status == 2) {
             requireAuth("AuthView_Session_Expired");
@@ -1407,6 +1553,28 @@ export const usePalEditorStore = defineStore("paleditor", () => {
             reportOperationError("Operation_Load_Pals", response);
         }
         if (!no_set_loading_flag) LOADING_FLAG.value = false;
+        return response.status == 0;
+    }
+
+    async function fetchPlayerPal(playerUId) {
+        const map = playerUId == PAL_BASE_WORKER_BTN.value
+            ? BASE_PAL_MAP.value
+            : PLAYER_MAP.value.get(playerUId)?.pals;
+        if (!map) return false;
+        return fetchOwnerPals({ PlayerUId: playerUId }, map);
+    }
+
+    async function fetchBasePals(baseId) {
+        const base = BASES.value.get(baseId);
+        if (!base) return false;
+        return fetchOwnerPals({ BaseCampId: baseId }, base.pals);
+    }
+
+    async function fetchUnassignedBasePals() {
+        const requestBody = LEGACY_BASE_WORKER_MODE.value
+            ? { PlayerUId: PAL_BASE_WORKER_BTN.value }
+            : { UnassignedBaseWorkers: true };
+        return fetchOwnerPals(requestBody, UNASSIGNED_BASE_PALS.value);
     }
 
     async function fetchPlayerData(playerUId) {
@@ -1440,49 +1608,108 @@ export const usePalEditorStore = defineStore("paleditor", () => {
     }
 
     async function selectPlayer(playerUId, manual = false) {
-        let no_set_loading_flag = LOADING_FLAG.value;
-        if (!no_set_loading_flag) LOADING_FLAG.value = true;
+        const requestId = ++ownerSelectionRequestId;
+        beginOwnerSelection();
 
-        // clear selected playerId
-        SELECTED_PLAYER_ID.value = null;
-        SELECTED_PLAYER_DATA.value = null;
-        BASE_PAL_BTN_CLK_FLAG.value = false;
-        SHOW_PLAYER_EDIT_FLAG.value = false;
+        try {
+            // clear selected playerId
+            SELECTED_PLAYER_ID.value = null;
+            SELECTED_BASE_ID.value = null;
+            SELECTED_PLAYER_DATA.value = null;
+            BASE_PAL_BTN_CLK_FLAG.value = false;
+            SHOW_PLAYER_EDIT_FLAG.value = false;
 
-        // clear pal selection
-        SELECTED_PAL_ID.value = null;
-        SELECTED_PAL_DATA.value = null;
+            // clear pal selection
+            SELECTED_PAL_ID.value = null;
+            SELECTED_PAL_DATA.value = null;
 
-        // if data not present
-        // need to change this in the future, so the pal list properly refreshes (for add / del pal)
-        if (
-            (playerUId == PAL_BASE_WORKER_BTN.value &&
-                BASE_PAL_MAP.value.size == 0) ||
-            (playerUId != PAL_BASE_WORKER_BTN.value &&
-                PLAYER_MAP.value.get(playerUId).pals.size == 0)
-        ) {
-            await fetchPlayerPal(playerUId);
-        }
-
-        // set the pal_map
-        PAL_MAP.value =
-            playerUId == PAL_BASE_WORKER_BTN.value
-                ? BASE_PAL_MAP.value
-                : PLAYER_MAP.value.get(playerUId).pals;
-
-        // properly setup selected player flag
-        if (playerUId == PAL_BASE_WORKER_BTN.value) {
-            BASE_PAL_BTN_CLK_FLAG.value = true;
-        } else {
-            SELECTED_PLAYER_ID.value = playerUId;
-            if (!manual) {
-                await fetchPlayerData(playerUId);
+            // if data not present
+            // need to change this in the future, so the pal list properly refreshes (for add / del pal)
+            if (
+                (playerUId == PAL_BASE_WORKER_BTN.value &&
+                    BASE_PAL_MAP.value.size == 0) ||
+                (playerUId != PAL_BASE_WORKER_BTN.value &&
+                    PLAYER_MAP.value.get(playerUId).pals.size == 0)
+            ) {
+                if (!await fetchPlayerPal(playerUId)) return false;
             }
-            SHOW_PLAYER_EDIT_FLAG.value = true;
-            SELECTED_PLAYER_DATA.value = PLAYER_MAP.value.get(playerUId);
-        }
+            if (requestId !== ownerSelectionRequestId) return false;
 
-        if (!no_set_loading_flag) LOADING_FLAG.value = false;
+            // set the pal_map
+            PAL_MAP.value =
+                playerUId == PAL_BASE_WORKER_BTN.value
+                    ? BASE_PAL_MAP.value
+                    : PLAYER_MAP.value.get(playerUId).pals;
+
+            // properly setup selected player flag
+            if (playerUId == PAL_BASE_WORKER_BTN.value) {
+                BASE_PAL_BTN_CLK_FLAG.value = true;
+            } else {
+                SELECTED_PLAYER_ID.value = playerUId;
+                if (!manual) {
+                    await fetchPlayerData(playerUId);
+                    if (requestId !== ownerSelectionRequestId) return false;
+                }
+                SHOW_PLAYER_EDIT_FLAG.value = true;
+                SELECTED_PLAYER_DATA.value = PLAYER_MAP.value.get(playerUId);
+            }
+
+            return true;
+        } finally {
+            endOwnerSelection();
+        }
+    }
+
+    async function selectBase(baseId) {
+        const base = BASES.value.get(baseId);
+        if (!base) return false;
+        const requestId = ++ownerSelectionRequestId;
+        beginOwnerSelection();
+
+        try {
+            if (!base.palsLoaded) {
+                if (!await fetchBasePals(baseId)) return false;
+                base.palsLoaded = true;
+            }
+            if (requestId !== ownerSelectionRequestId) return false;
+
+            SELECTED_PLAYER_ID.value = null;
+            SELECTED_PLAYER_DATA.value = null;
+            SELECTED_BASE_ID.value = baseId;
+            BASE_PAL_BTN_CLK_FLAG.value = true;
+            SHOW_PLAYER_EDIT_FLAG.value = false;
+            SELECTED_PAL_ID.value = null;
+            SELECTED_PAL_DATA.value = null;
+            PAL_MAP.value = base.pals;
+
+            return true;
+        } finally {
+            endOwnerSelection();
+        }
+    }
+
+    async function selectUnassignedWorkers() {
+        if (!HAS_UNASSIGNED_WORKING_PAL.value) return false;
+        const requestId = ++ownerSelectionRequestId;
+        beginOwnerSelection();
+
+        try {
+            if (!await fetchUnassignedBasePals()) return false;
+            if (requestId !== ownerSelectionRequestId) return false;
+
+            SELECTED_PLAYER_ID.value = null;
+            SELECTED_PLAYER_DATA.value = null;
+            SELECTED_BASE_ID.value = null;
+            BASE_PAL_BTN_CLK_FLAG.value = true;
+            SHOW_PLAYER_EDIT_FLAG.value = false;
+            SELECTED_PAL_ID.value = null;
+            SELECTED_PAL_DATA.value = null;
+            PAL_MAP.value = UNASSIGNED_BASE_PALS.value;
+
+            return true;
+        } finally {
+            endOwnerSelection();
+        }
     }
 
     async function fetchPalData(player, pal) {
@@ -1503,7 +1730,7 @@ export const usePalEditorStore = defineStore("paleditor", () => {
             });
             // update the pal from the correct pal container
             if (player == PAL_BASE_WORKER_BTN.value) {
-                BASE_PAL_MAP.value.set(pal_data.InstanceId, pal_data);
+                PAL_MAP.value.set(pal_data.InstanceId, pal_data);
             } else {
                 PLAYER_MAP.value
                     .get(player)
@@ -1860,6 +2087,124 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         if (!no_set_loading_flag) LOADING_FLAG.value = false;
     }
 
+    async function fetchGuildResearch(guildId = SELECTED_RESEARCH_GUILD_ID.value) {
+        beginGuildResearchRequest();
+        const requestId = ++guildResearchRequestId;
+        try {
+            const guild = GUILD_LIST.value.find(item => item.GuildId === guildId);
+            SELECTED_RESEARCH_GUILD_ID.value = guildId || "";
+            LOADED_RESEARCH_GUILD_ID.value = "";
+            SELECTED_GUILD_RESEARCH.value = {
+                completed_research_ids: [],
+                current_research_id: "None",
+                work_amounts: {},
+            };
+            GUILD_RESEARCH_NO_LAB.value = Boolean(guild && !guild.HasLab);
+            if (!guildId || GUILD_RESEARCH_NO_LAB.value) {
+                LOADED_RESEARCH_GUILD_ID.value = guildId || "";
+                return Boolean(guildId);
+            }
+
+            const response = await POST("/api/guild/research", { GuildId: guildId });
+            if (response === false) return false;
+            if (response.status == 2) {
+                requireAuth("AuthView_Session_Expired");
+                return false;
+            }
+            if (
+                requestId !== guildResearchRequestId
+                || SELECTED_RESEARCH_GUILD_ID.value !== guildId
+            ) return false;
+            if (response.status == 0) {
+                SELECTED_GUILD_RESEARCH.value = response.data;
+                LOADED_RESEARCH_GUILD_ID.value = guildId;
+                return true;
+            }
+            reportOperationError("Operation_Load_Guild_Research", response);
+            return false;
+        } finally {
+            endGuildResearchRequest();
+        }
+    }
+
+    async function openGuildResearch() {
+        if (!RESEARCH_SUPPORTED.value) return false;
+        const openRequestId = ++guildResearchOpenRequestId;
+        const response = await GET("/api/guild/list");
+        if (response === false) return false;
+        if (response.status == 2) {
+            requireAuth("AuthView_Session_Expired");
+            return false;
+        }
+        if (response.status != 0) {
+            reportOperationError("Operation_Load_Guild_Research", response);
+            return false;
+        }
+        if (
+            openRequestId !== guildResearchOpenRequestId
+            || !SAVE_LOADED_FLAG.value
+            || APP_STATE.value !== "editor"
+        ) return false;
+
+        GUILD_LIST.value = response.data.guilds;
+        if (!GUILD_LIST.value.length) {
+            showToast("GuildResearch_No_Guild");
+            return false;
+        }
+        const selected = GUILD_LIST.value.find(guild => guild.GuildId === SELECTED_RESEARCH_GUILD_ID.value)
+            || GUILD_LIST.value.find(guild => guild.HasLab)
+            || GUILD_LIST.value[0];
+        if (!await fetchGuildResearch(selected.GuildId)) return false;
+        if (
+            openRequestId !== guildResearchOpenRequestId
+            || !SAVE_LOADED_FLAG.value
+            || APP_STATE.value !== "editor"
+        ) return false;
+        SHOW_RESEARCH_FLAG.value = true;
+        return true;
+    }
+
+    async function patchGuildResearch(key, value = null) {
+        if (GUILD_RESEARCH_LOADING.value || LOADING_FLAG.value) return false;
+        const guildId = SELECTED_RESEARCH_GUILD_ID.value;
+        if (!guildId || LOADED_RESEARCH_GUILD_ID.value !== guildId) return false;
+        const lifecycleId = guildResearchRequestId;
+        LOADING_FLAG.value = true;
+        beginGuildResearchRequest();
+        try {
+            const response = await PATCH("/api/guild/research", {
+                GuildId: guildId,
+                key,
+                value,
+            });
+            if (response === false) return false;
+            if (response.status == 0) {
+                if (
+                    lifecycleId !== guildResearchRequestId
+                    || !SAVE_LOADED_FLAG.value
+                    || APP_STATE.value !== "editor"
+                    || SELECTED_RESEARCH_GUILD_ID.value !== guildId
+                    || LOADED_RESEARCH_GUILD_ID.value !== guildId
+                ) return false;
+                return fetchGuildResearch(guildId);
+            }
+            if (response.status == 2) requireAuth("AuthView_Session_Expired");
+            else reportOperationError("Operation_Update_Guild_Research", response);
+            return false;
+        } finally {
+            endGuildResearchRequest();
+            LOADING_FLAG.value = false;
+        }
+    }
+
+    async function toggleGuildResearch(research, status) {
+        return patchGuildResearch("toggle_research", { research, status });
+    }
+
+    async function unlockAllGuildResearch() {
+        return patchGuildResearch("unlock_all_research");
+    }
+
     async function showDonate() {
         let no_set_loading_flag = LOADING_FLAG.value;
         if (!no_set_loading_flag) LOADING_FLAG.value = true;
@@ -1889,8 +2234,11 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         PAL_ACTIVE_SELECTED_ITEM,
         PAL_BASE_WORKER_BTN,
         PLAYER_MAP,
+        BASES,
+        UNASSIGNED_BASE_PALS,
         PAL_MAP,
         SELECTED_PLAYER_ID,
+        SELECTED_BASE_ID,
         SELECTED_PLAYER_DATA,
         SELECTED_PAL_ID,
         SELECTED_PAL_DATA,
@@ -1932,6 +2280,8 @@ export const usePalEditorStore = defineStore("paleditor", () => {
 
         SHOW_PLAYER_EDIT_FLAG,
         HAS_WORKING_PAL_FLAG,
+        HAS_UNASSIGNED_WORKING_PAL,
+        LEGACY_BASE_WORKER_MODE,
         BASE_PAL_BTN_CLK_FLAG,
         PAL_GAME_SAVE_PATH,
         PAL_WRITE_BACK_PATH,
@@ -1949,6 +2299,15 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         ACTIVE_SKILLS_LIST,
         TECH_LV_DICT,
         PAL_TEMPLATES,
+        RESEARCH_CATEGORIES,
+        RESEARCH_SUPPORTED,
+        GUILD_LIST,
+        SELECTED_RESEARCH_GUILD_ID,
+        LOADED_RESEARCH_GUILD_ID,
+        SELECTED_GUILD_RESEARCH,
+        GUILD_RESEARCH_NO_LAB,
+        GUILD_RESEARCH_LOADING,
+        SHOW_RESEARCH_FLAG,
 
         getTranslatedText,
         getMessageText,
@@ -1969,6 +2328,8 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         updateI18n,
         loadSave,
         selectPlayer,
+        selectBase,
+        selectUnassignedWorkers,
         selectPal,
         updatePal,
         randomizePalIVs,
@@ -1982,6 +2343,10 @@ export const usePalEditorStore = defineStore("paleditor", () => {
         fetchPalTemplates,
         savePalTemplate,
         deletePalTemplate,
+        openGuildResearch,
+        fetchGuildResearch,
+        toggleGuildResearch,
+        unlockAllGuildResearch,
 
         bootstrap,
         connectBackend,

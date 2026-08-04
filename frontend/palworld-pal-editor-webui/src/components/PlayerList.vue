@@ -7,6 +7,8 @@ const emit = defineEmits(['toggle'])
 const toggleLabel = () => palStore.getTranslatedText(props.preview ? 'PlayerList_Restore' : 'PlayerList_Collapse')
 const playerLabel = player => player.NickName || palStore.getTranslatedText('PlayerList_Unknown')
 const playerInitial = player => playerLabel(player).trim().charAt(0).toUpperCase() || '?'
+const baseLabel = (base, index) => base.Name
+  || palStore.getTranslatedText('PlayerList_Base_Unnamed', [index + 1])
 </script>
 
 <template>
@@ -19,12 +21,24 @@ const playerInitial = player => playerLabel(player).trim().charAt(0).toUpperCase
     </header>
 
     <div class="roster-list">
-      <button v-if="palStore.HAS_WORKING_PAL_FLAG" class="roster-row roster-row--base"
-        @click="palStore.selectPlayer(palStore.PAL_BASE_WORKER_BTN)"
-        :aria-current="palStore.BASE_PAL_BTN_CLK_FLAG ? 'true' : undefined"
-        :disabled="palStore.BASE_PAL_BTN_CLK_FLAG || palStore.LOADING_FLAG">
+      <button v-for="(base, index) in [...palStore.BASES.values()]" :key="base.Id"
+        class="roster-row roster-row--base" @click="palStore.selectBase(base.Id)" :title="base.Id"
+        :aria-current="base.Id == palStore.SELECTED_BASE_ID ? 'true' : undefined"
+        :disabled="(base.Id == palStore.SELECTED_BASE_ID && !palStore.SELECTED_PAL_ID) || palStore.LOADING_FLAG">
+        <span class="player-avatar">BASE</span>
+        <span class="roster-copy">
+          <strong>{{ baseLabel(base, index) }}</strong>
+          <small v-if="base.GuildName">{{ base.GuildName }}</small>
+        </span>
+      </button>
+
+      <button v-if="palStore.HAS_UNASSIGNED_WORKING_PAL" class="roster-row roster-row--base"
+        @click="palStore.selectUnassignedWorkers()"
+        :aria-current="palStore.BASE_PAL_BTN_CLK_FLAG && !palStore.SELECTED_BASE_ID ? 'true' : undefined"
+        :disabled="(palStore.BASE_PAL_BTN_CLK_FLAG && !palStore.SELECTED_BASE_ID && !palStore.SELECTED_PAL_ID) || palStore.LOADING_FLAG">
         <span class="player-avatar">PAL</span>
-        <span class="roster-copy">{{ palStore.getTranslatedText('PlayerList_Base_Pal') }}</span>
+        <span class="roster-copy">{{ palStore.getTranslatedText(palStore.LEGACY_BASE_WORKER_MODE
+          ? 'PlayerList_Base_Pal' : 'PlayerList_Base_Unassigned') }}</span>
       </button>
 
       <button v-for="player in palStore.PLAYER_MAP.values()" :key="player.InstanceId"
@@ -107,9 +121,16 @@ const playerInitial = player => playerLabel(player).trim().charAt(0).toUpperCase
 }
 
 .roster-copy {
+  display: grid;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.roster-copy small {
+  color: var(--editor-color-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .player-avatar {

@@ -1,4 +1,5 @@
 <script setup>
+import BaseInfo from '@/components/BaseInfo.vue'
 import PalEditor from '@/components/PalEditor.vue'
 import PalList from '@/components/PalList.vue'
 import PlayerEditor from '@/components/PlayerEditor.vue'
@@ -23,7 +24,8 @@ const emit = defineEmits(['collapsePlayers', 'collapsePals'])
       <PalList v-if="palStore.SELECTED_PLAYER_ID || palStore.BASE_PAL_BTN_CLK_FLAG" @toggle="emit('collapsePals')" />
     </aside>
     <main class="editor-canvas">
-      <PlayerEditor v-if="palStore.SHOW_PLAYER_EDIT_FLAG" />
+      <BaseInfo v-if="palStore.BASE_PAL_BTN_CLK_FLAG && !palStore.SELECTED_PAL_ID" />
+      <PlayerEditor v-else-if="palStore.SHOW_PLAYER_EDIT_FLAG" />
       <PalEditor v-else-if="palStore.SELECTED_PAL_ID && palStore.SELECTED_PAL_DATA" />
       <p v-else class="editor-empty">{{ palStore.getTranslatedText('Editor_Select_Prompt') }}</p>
     </main>

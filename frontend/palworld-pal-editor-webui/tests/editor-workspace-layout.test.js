@@ -97,7 +97,12 @@ test("player and Pal rows preserve selection contracts without grayscale selecti
     assert.match(players, /:aria-current="player\.InstanceId == palStore\.SELECTED_PLAYER_ID \? 'true' : undefined"/);
     assert.match(players, /player\.NickName \|\| palStore\.getTranslatedText\('PlayerList_Unknown'\)/);
     assert.match(players, /\(player\.InstanceId == palStore\.SELECTED_PLAYER_ID && palStore\.SHOW_PLAYER_EDIT_FLAG\) \|\| palStore\.LOADING_FLAG/);
-    assert.match(players, /palStore\.BASE_PAL_BTN_CLK_FLAG \|\| palStore\.LOADING_FLAG/);
+    assert.match(players, /\[\.\.\.palStore\.BASES\.values\(\)\]/);
+    assert.match(players, /palStore\.selectBase\(base\.Id\)/);
+    assert.match(players, /palStore\.selectUnassignedWorkers\(\)/);
+    assert.match(players, /:title="base\.Id"/);
+    assert.match(pals, /UPDATE_PAL_RESELECT_CTR/);
+    assert.doesNotMatch(pals, /querySelector\('button:not\(:disabled\)'\)/);
     assert.match(pals, /:value="pal\.InstanceId"/);
     assert.match(pals, /:aria-current="palStore\.SELECTED_PAL_ID == pal\.InstanceId \? 'true' : undefined"/);
     assert.match(pals, /palStore\.SELECTED_PAL_ID == pal\.InstanceId \|\| palStore\.LOADING_FLAG/);
@@ -114,9 +119,21 @@ test("player and Pal rows preserve selection contracts without grayscale selecti
 
 test("new workspace labels are translated", () => {
     for (const locale of [en, fr, ja, zhCN]) {
-        for (const key of ["TopBar_More", "PlayerList_Unknown", "PalList_Search", "PalList_Add", "Editor_Select_Prompt", "PlayerList_Collapse", "PlayerList_Restore", "PalList_Collapse", "PalList_Restore"]) {
+        for (const key of ["TopBar_More", "PlayerList_Unknown", "PalList_Search", "PalList_Add", "Editor_Select_Prompt", "PlayerList_Collapse", "PlayerList_Restore", "PalList_Collapse", "PalList_Restore", "PlayerList_Base_Unnamed", "PlayerList_Base_Unassigned", "BaseInfo_Title", "BaseInfo_Name", "BaseInfo_Guild", "BaseInfo_Level", "BaseInfo_WorkerCount", "BaseInfo_Coords"]) {
             assert.equal(typeof locale[key], "string", key);
             assert.ok(locale[key].trim(), key);
         }
     }
+});
+
+test("base owners show an overview before a Pal is selected", async () => {
+    const [view, info] = await Promise.all([
+        read("../src/views/EditorView.vue"),
+        read("../src/components/BaseInfo.vue"),
+    ]);
+    assert.match(view, /import BaseInfo from/);
+    assert.match(view, /<BaseInfo v-if="palStore\.BASE_PAL_BTN_CLK_FLAG && !palStore\.SELECTED_PAL_ID"/);
+    assert.match(info, /palStore\.SELECTED_BASE_ID/);
+    assert.match(info, /base\.value\?\.MapCoordinates/);
+    assert.match(info, /base\.value\?\.palsLoaded/);
 });

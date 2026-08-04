@@ -28,8 +28,13 @@ function mockBackend({
     password = true,
     loaded = false,
     hasWorkingPal = false,
+    hasUnassignedWorkingPal = false,
     players = [],
+    bases = [],
     pals = [],
+    ownerPals = {},
+    legacyBackend = false,
+    researchSupported = true,
     locale = "en",
     locales = { en: "English" },
 } = {}) {
@@ -49,13 +54,20 @@ function mockBackend({
         if (url.endsWith("/auth")) return reply(null);
         if (url.endsWith("/status")) return reply({ SaveLoaded: loaded });
         if (url.endsWith("players_data")) {
-            return reply({ hasWorkingPal, players });
+            if (legacyBackend) return reply({ hasWorkingPal, players });
+            return reply({ hasWorkingPal, hasUnassignedWorkingPal, players, bases });
         }
         if (url.endsWith("passive_skills") || url.endsWith("active_skills") || url.endsWith("pal_data")) {
             return reply({ dict: {}, arr: [] });
         }
         if (url.endsWith("tech_data")) return reply({ techLvDict: {} });
         if (url.endsWith("skin_data")) return reply({ arr: [] });
+        if (url.endsWith("research_data")) {
+            if (!researchSupported) {
+                return { data: "<!doctype html><html></html>" };
+            }
+            return reply({ researchCategories: [] });
+        }
         throw new Error(`Unexpected GET ${url}`);
     };
     axios.patch = async url => {
@@ -66,7 +78,14 @@ function mockBackend({
         calls.push(["POST", url]);
         if (url.endsWith("/login")) return reply({ access_token: "token" });
         if (url.endsWith("/save/load")) return reply(null);
-        if (url.endsWith("/player_pals")) return reply(pals);
+        if (url.endsWith("/player_pals")) {
+            const ownerKey = data.BaseCampId
+                ? `base:${data.BaseCampId}`
+                : data.UnassignedBaseWorkers
+                ? "unassigned"
+                : `player:${data.PlayerUId}`;
+            return reply(ownerPals[ownerKey] ?? pals);
+        }
         if (url.endsWith("/paldata")) {
             return reply(pals.find(pal => pal.InstanceId === data.InstanceId));
         }
@@ -291,7 +310,8 @@ test("connectBackend is unavailable while editing", async () => {
 
     assert.equal(store.APP_STATE, "editor");
     assert.equal(await store.connectBackend("10.0.0.2:58081"), false);
-    assert.equal(calls.at(-1)[1], "/api/save/skin_data");
+    assert.ok(calls.some(([, url]) => url === "/api/save/skin_data"));
+    assert.ok(calls.some(([, url]) => url === "/api/save/research_data"));
 });
 
 test("bootstrap asks for a password when no remembered token exists", async () => {
@@ -473,25 +493,295 @@ test("a failed login request uses the dedicated backend error state", async () =
     assert.equal(store.LOADING_FLAG, false);
 });
 
-test("loaded-save hydration selects base camp again after reloading", async () => {
+test("loaded-save hydration selects the first real base without selecting a Pal", async () => {
     const store = newStore();
     mockBackend({
         password: false,
         loaded: true,
         hasWorkingPal: true,
+        bases: [{ Id: "base-1", Name: "Main Base", WorkerCount: 1 }],
         players: [{ InstanceId: "player-1", NickName: "Player One" }],
-        pals: [{ InstanceId: "pal-1", CharacterID: "SheepBall" }],
+        ownerPals: {
+            "base:base-1": [{ InstanceId: "pal-1", CharacterID: "SheepBall" }],
+        },
     });
 
     await store.bootstrap();
     assert.equal(store.BASE_PAL_BTN_CLK_FLAG, true);
     assert.equal(store.SELECTED_PLAYER_ID, null);
-    assert.equal(store.SELECTED_PAL_ID, "pal-1");
+    assert.equal(store.SELECTED_BASE_ID, "base-1");
+    assert.equal(store.SELECTED_PAL_ID, null);
 
     await store.loadSave();
     assert.equal(store.BASE_PAL_BTN_CLK_FLAG, true);
     assert.equal(store.SELECTED_PLAYER_ID, null);
-    assert.equal(store.SELECTED_PAL_ID, "pal-1");
+    assert.equal(store.SELECTED_BASE_ID, "base-1");
+    assert.equal(store.SELECTED_PAL_ID, null);
+});
+
+test("loaded-save hydration selects unassigned workers when no real base exists", async () => {
+    const store = newStore();
+    mockBackend({
+        password: false,
+        loaded: true,
+        hasWorkingPal: true,
+        hasUnassignedWorkingPal: true,
+        ownerPals: {
+            unassigned: [{ InstanceId: "legacy-pal", CharacterID: "SheepBall" }],
+        },
+    });
+
+    await store.bootstrap();
+
+    assert.equal(store.BASE_PAL_BTN_CLK_FLAG, true);
+    assert.equal(store.SELECTED_BASE_ID, null);
+    assert.equal(store.SELECTED_PAL_ID, null);
+    assert.equal(store.UNASSIGNED_BASE_PALS.size, 1);
+});
+
+test("loaded-save hydration falls back to a legacy backend's unified workers", async () => {
+    const store = newStore();
+    const calls = mockBackend({
+        password: false,
+        loaded: true,
+        hasWorkingPal: true,
+        legacyBackend: true,
+        researchSupported: false,
+        ownerPals: {
+            "player:PAL_BASE_WORKER_BTN": [
+                { InstanceId: "legacy-pal", CharacterID: "SheepBall" },
+            ],
+        },
+    });
+
+    await store.bootstrap();
+
+    assert.equal(store.APP_STATE, "editor");
+    assert.equal(store.LEGACY_BASE_WORKER_MODE, true);
+    assert.equal(store.RESEARCH_SUPPORTED, false);
+    assert.equal(store.BASE_PAL_BTN_CLK_FLAG, true);
+    assert.equal(store.UNASSIGNED_BASE_PALS.size, 1);
+    assert.ok(calls.some(([method, url]) =>
+        method === "POST" && url === "/api/player/player_pals"
+    ));
+});
+
+test("base hydration does not override an authentication failure", async () => {
+    const store = newStore();
+    mockBackend({
+        password: false,
+        loaded: true,
+        hasWorkingPal: true,
+        bases: [{ Id: "base-1", Name: "Main Base", WorkerCount: 1 }],
+    });
+    const backendPost = axios.post;
+    axios.post = async (url, data) => {
+        if (url.endsWith("/player_pals")) {
+            return { data: { status: 2, msg: "Token expired" } };
+        }
+        return backendPost(url, data);
+    };
+
+    await store.bootstrap();
+
+    assert.equal(store.APP_STATE, "auth-required");
+    assert.equal(store.SAVE_LOADED_FLAG, false);
+    assert.equal(store.SELECTED_BASE_ID, null);
+});
+
+test("unassigned hydration does not override an authentication failure", async () => {
+    const store = newStore();
+    mockBackend({
+        password: false,
+        loaded: true,
+        hasWorkingPal: true,
+        hasUnassignedWorkingPal: true,
+    });
+    const backendPost = axios.post;
+    axios.post = async (url, data) => {
+        if (url.endsWith("/player_pals")) {
+            return { data: { status: 2, msg: "Token expired" } };
+        }
+        return backendPost(url, data);
+    };
+
+    await store.bootstrap();
+
+    assert.equal(store.APP_STATE, "auth-required");
+    assert.equal(store.SAVE_LOADED_FLAG, false);
+    assert.equal(store.BASE_PAL_BTN_CLK_FLAG, false);
+});
+
+test("late base responses cannot overwrite a newer owner selection", async () => {
+    const store = newStore();
+    store.BASES = new Map([
+        ["base-a", { Id: "base-a", pals: new Map(), palsLoaded: false }],
+        ["base-b", { Id: "base-b", pals: new Map(), palsLoaded: false }],
+    ]);
+    const resolvers = new Map();
+    axios.post = async (url, data) => {
+        assert.ok(url.endsWith("/api/player/player_pals"));
+        return new Promise(resolve => resolvers.set(data.BaseCampId, resolve));
+    };
+
+    const first = store.selectBase("base-a");
+    const second = store.selectBase("base-b");
+    resolvers.get("base-b")(reply([{ InstanceId: "pal-b" }]));
+    assert.equal(await second, true);
+    resolvers.get("base-a")(reply([{ InstanceId: "pal-a" }]));
+    assert.equal(await first, false);
+
+    assert.equal(store.SELECTED_BASE_ID, "base-b");
+    assert.deepEqual([...store.PAL_MAP.keys()], ["pal-b"]);
+});
+
+test("locale refresh restores owner caches when any owner refresh fails", async () => {
+    const store = newStore();
+    mockBackend({ password: false, loaded: false });
+    await store.bootstrap();
+    store.PLAYER_MAP = new Map([
+        ["player-1", { pals: new Map([["old-player-pal", { InstanceId: "old-player-pal" }]]) }],
+    ]);
+    store.BASES = new Map([
+        ["base-1", { Id: "base-1", pals: new Map([["old-base-pal", { InstanceId: "old-base-pal" }]]) }],
+    ]);
+    axios.patch = async () => reply(null);
+    axios.post = async (url, data) => {
+        assert.ok(url.endsWith("/api/player/player_pals"));
+        if (data.PlayerUId) return reply([{ InstanceId: "new-player-pal" }]);
+        return { data: { status: 1, msg: "Rejected" } };
+    };
+    store.SAVE_LOADED_FLAG = true;
+
+    assert.equal(await store.updateI18n(), false);
+    assert.deepEqual([...store.PLAYER_MAP.get("player-1").pals.keys()], ["old-player-pal"]);
+    assert.deepEqual([...store.BASES.get("base-1").pals.keys()], ["old-base-pal"]);
+});
+
+test("late guild research responses cannot overwrite the selected guild", async () => {
+    const store = newStore();
+    store.GUILD_LIST = [
+        { GuildId: "guild-a", HasLab: true },
+        { GuildId: "guild-b", HasLab: true },
+    ];
+    const resolvers = new Map();
+    axios.post = async (url, data) => {
+        assert.ok(url.endsWith("/api/guild/research"));
+        return new Promise(resolve => resolvers.set(data.GuildId, resolve));
+    };
+
+    const first = store.fetchGuildResearch("guild-a");
+    const second = store.fetchGuildResearch("guild-b");
+    resolvers.get("guild-b")(reply({
+        completed_research_ids: ["Cool2"],
+        current_research_id: "None",
+        work_amounts: {},
+    }));
+    await second;
+    resolvers.get("guild-a")(reply({
+        completed_research_ids: ["Seeding2"],
+        current_research_id: "None",
+        work_amounts: {},
+    }));
+    await first;
+
+    assert.equal(store.SELECTED_RESEARCH_GUILD_ID, "guild-b");
+    assert.deepEqual(store.SELECTED_GUILD_RESEARCH.completed_research_ids, ["Cool2"]);
+});
+
+test("late guild research authentication failures still expire the session", async () => {
+    const store = newStore();
+    localStorage.setItem("PAL_AUTH_TOKEN", "remembered");
+    store.GUILD_LIST = [
+        { GuildId: "guild-a", HasLab: true },
+        { GuildId: "guild-b", HasLab: true },
+    ];
+    const resolvers = new Map();
+    axios.post = async (url, data) => {
+        assert.ok(url.endsWith("/api/guild/research"));
+        return new Promise(resolve => resolvers.set(data.GuildId, resolve));
+    };
+
+    const first = store.fetchGuildResearch("guild-a");
+    const second = store.fetchGuildResearch("guild-b");
+    resolvers.get("guild-b")(reply({
+        completed_research_ids: ["Cool2"],
+        current_research_id: "None",
+        work_amounts: {},
+    }));
+    await second;
+    resolvers.get("guild-a")({ data: { status: 2, msg: "Token expired" } });
+    await first;
+
+    assert.equal(store.APP_STATE, "auth-required");
+    assert.equal(localStorage.getItem("PAL_AUTH_TOKEN"), null);
+});
+
+test("guild research writes are serialized and always release their busy state", async () => {
+    const store = newStore();
+    store.GUILD_LIST = [{ GuildId: "guild-a", HasLab: true }];
+    store.SELECTED_RESEARCH_GUILD_ID = "guild-a";
+    store.LOADED_RESEARCH_GUILD_ID = "guild-a";
+    store.SAVE_LOADED_FLAG = true;
+    store.APP_STATE = "editor";
+    let resolvePatch;
+    let patchCalls = 0;
+    axios.patch = async url => {
+        assert.ok(url.endsWith("/api/guild/research"));
+        patchCalls += 1;
+        return new Promise(resolve => { resolvePatch = resolve; });
+    };
+    axios.post = async () => reply({
+        completed_research_ids: ["Cool1"],
+        current_research_id: "None",
+        work_amounts: {},
+    });
+
+    const first = store.toggleGuildResearch("Cool1", true);
+    assert.equal(store.GUILD_RESEARCH_LOADING, true);
+    assert.equal(store.LOADING_FLAG, true);
+    assert.equal(await store.unlockAllGuildResearch(), false);
+    assert.equal(patchCalls, 1);
+    resolvePatch(reply(null));
+    assert.equal(await first, true);
+    assert.equal(store.GUILD_RESEARCH_LOADING, false);
+
+    axios.patch = async () => ({ data: { status: 1, msg: "Rejected" } });
+    assert.equal(await store.unlockAllGuildResearch(), false);
+    assert.equal(store.GUILD_RESEARCH_LOADING, false);
+
+    axios.patch = async () => ({ data: { status: 2, msg: "Token expired" } });
+    assert.equal(await store.unlockAllGuildResearch(), false);
+    assert.equal(store.GUILD_RESEARCH_LOADING, false);
+    assert.equal(store.APP_STATE, "auth-required");
+});
+
+test("failed guild switches clear stale research and block writes", async () => {
+    const store = newStore();
+    store.GUILD_LIST = [
+        { GuildId: "guild-a", HasLab: true },
+        { GuildId: "guild-b", HasLab: true },
+    ];
+    store.SELECTED_RESEARCH_GUILD_ID = "guild-a";
+    store.LOADED_RESEARCH_GUILD_ID = "guild-a";
+    store.SELECTED_GUILD_RESEARCH = {
+        completed_research_ids: ["Cool1"],
+        current_research_id: "None",
+        work_amounts: {},
+    };
+    let patchCalls = 0;
+    axios.post = async () => ({ data: { status: 1, msg: "Rejected" } });
+    axios.patch = async () => {
+        patchCalls += 1;
+        return reply(null);
+    };
+
+    assert.equal(await store.fetchGuildResearch("guild-b"), false);
+    assert.equal(store.SELECTED_RESEARCH_GUILD_ID, "guild-b");
+    assert.equal(store.LOADED_RESEARCH_GUILD_ID, "");
+    assert.deepEqual(store.SELECTED_GUILD_RESEARCH.completed_research_ids, []);
+    assert.equal(await store.unlockAllGuildResearch(), false);
+    assert.equal(patchCalls, 0);
 });
 
 test("loaded-save hydration selects the first player when there is no base camp", async () => {
