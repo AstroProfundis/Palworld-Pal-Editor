@@ -12445,6 +12445,124 @@
             "zh-TW": "explicit"
         }
     },
+    "SelfDeathAddItemDrop_up_1": {
+        "InternalName": "SelfDeathAddItemDrop_up_1",
+        "Rating": 1,
+        "I18n": {
+            "ja": {
+                "Name": "おすそわけ",
+                "Description": "自身のドロップアイテム+15%"
+            },
+            "de": {
+                "Name": "Freigiebig",
+                "Description": "Eigene Beutemenge +15 %"
+            },
+            "en": {
+                "Name": "Sharing is Caring",
+                "Description": "Your Dropped Items + 15%"
+            },
+            "es": {
+                "Name": "A medias",
+                "Description": "Objetos que deja caer +15 %"
+            },
+            "es-MX": {
+                "Name": "Reparto",
+                "Description": "Objetos obtenidos +15%"
+            },
+            "fr": {
+                "Name": "Partageur",
+                "Description": "Objets obtenus +15 %"
+            },
+            "id": {
+                "Name": "Berbagi",
+                "Description": "Jumlah drop item pribadi+15%"
+            },
+            "it": {
+                "Name": "Condivisione",
+                "Description": "Oggetti lasciati +15%"
+            },
+            "ko": {
+                "Name": "나누는 마음",
+                "Description": "자신의 드롭 아이템 +15%"
+            },
+            "pl": {
+                "Name": "Ostatni podarek",
+                "Description": "Liczba własnych upuszczanych przedmiotów +15%"
+            },
+            "pt-BR": {
+                "Name": "Compartilhamento",
+                "Description": "Itens deixados ao morrer +15%"
+            },
+            "ru": {
+                "Name": "Щедрая доля",
+                "Description": "Количество выпадаемых предметов +15%"
+            },
+            "th": {
+                "Name": "แบ่งปันเล็กน้อย",
+                "Description": "ไอเท็มดรอปของตนเอง+15%"
+            },
+            "tr": {
+                "Name": "Paylaşma Nezaketi",
+                "Description": "Kendi düşen eşya miktarı +15%."
+            },
+            "vi": {
+                "Name": "Chia Sẻ May Mắn",
+                "Description": "Lượng vật phẩm rơi ra của bản thân +15%"
+            },
+            "zh-CN": {
+                "Name": "小小心意",
+                "Description": "自身道具掉落量+15%"
+            },
+            "zh-TW": {
+                "Name": "小小心意",
+                "Description": "自身道具掉落量+15%"
+            }
+        },
+        "Buff": {
+            "b_Attack": 0.0,
+            "b_Defense": 0.0,
+            "b_CraftSpeed": 0.0,
+            "b_MoveSpeed": 0.0
+        },
+        "Category": "SortDisplayable",
+        "TargetElementType": "None",
+        "Effects": [
+            {
+                "EffectType": "SelfDeathAddItemDrop",
+                "EffectValue": 15.0,
+                "TargetType": "ToSelf"
+            }
+        ],
+        "Invocation": {
+            "ActiveOtomo": false,
+            "Worker": false,
+            "Riding": false,
+            "Reserve": false,
+            "InOtomo": false,
+            "Always": true,
+            "InBaseCamp": false
+        },
+        "AddInvokeTriggerTypes": [],
+        "DescriptionSource": {
+            "ja": "explicit",
+            "de": "explicit",
+            "en": "explicit",
+            "es": "explicit",
+            "es-MX": "explicit",
+            "fr": "explicit",
+            "id": "explicit",
+            "it": "explicit",
+            "ko": "explicit",
+            "pl": "explicit",
+            "pt-BR": "explicit",
+            "ru": "explicit",
+            "th": "explicit",
+            "tr": "explicit",
+            "vi": "explicit",
+            "zh-CN": "explicit",
+            "zh-TW": "explicit"
+        }
+    },
     "SelfDeathAddItemDrop_up_2": {
         "InternalName": "SelfDeathAddItemDrop_up_2",
         "Rating": 3,

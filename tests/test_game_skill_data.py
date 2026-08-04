@@ -202,7 +202,7 @@ def test_unsupported_kingwhale_runtime_skills_remain_unassignable():
 def test_game_derived_pal_passive_contract():
     passives = load("pal_passives.json")
 
-    assert len(passives) == 115
+    assert len(passives) == 116
     assert {"MiniNushi", "Nushi"} <= passives.keys()
     assert passives["MiniNushi"]["Rating"] == 3
     assert passives["MiniNushi"]["I18n"]["zh-CN"]["Name"] == "大猎物"
@@ -216,6 +216,17 @@ def test_game_derived_pal_passive_contract():
         "b_CraftSpeed",
         "b_MoveSpeed",
     }
+    sharing = passives["SelfDeathAddItemDrop_up_1"]
+    assert sharing["Rating"] == 1
+    assert sharing["I18n"]["en"]["Name"] == "Sharing is Caring"
+    assert sharing["I18n"]["ja"]["Name"] == "おすそわけ"
+    assert sharing["Effects"] == [
+        {
+            "EffectType": "SelfDeathAddItemDrop",
+            "EffectValue": 15.0,
+            "TargetType": "ToSelf",
+        }
+    ]
     for passive_id, row in passives.items():
         assert set(row) == PASSIVE_FIELDS, passive_id
         assert row["InternalName"] == passive_id
