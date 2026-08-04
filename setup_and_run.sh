@@ -39,6 +39,26 @@ ${PYTHON_CMD} -m venv venv
 source venv/bin/activate
 
 pip install -r requirements.txt
+
+# Pin save-tools to the exact commit declared in requirements.txt.
+# pip may leave an older build of this git dependency in place, which corrupts
+# guild data on save. Detect any drift and force-reinstall just this package.
+python - <<'PY'
+import json, glob, re, subprocess, sys
+url = next((l.strip() for l in open("requirements.txt") if "palworld-save-tools" in l), None)
+required = (re.search(r"@([a-f0-9]+)", url).group(1) if url else "").lower()
+try:
+    info = glob.glob("venv/lib/python*/site-packages/palworld_save_tools*.dist-info/direct_url.json")[0]
+    installed = json.load(open(info))["vcs_info"]["commit_id"].lower()
+except Exception:
+    installed = ""
+if installed != required:
+    print(f"save-tools {installed[:7] or 'none'} -> {required[:7]}, force reinstalling")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "--force-reinstall", "--no-deps", url])
+else:
+    print(f"save-tools {installed[:7]} up to date")
+PY
+
 pip install -e .
 
 launch_command="python -m palworld_pal_editor ${@}"
