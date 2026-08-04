@@ -61,7 +61,7 @@ class PalGroup:
         return str(instanceId) in self.instance_map
 
     def has_player(self, playerUId: UUID | str) -> bool:
-        return playerUId in self.player_map
+        return str(playerUId) in self.player_map
 
     @property
     def group_id(self) -> Optional[UUID]:
@@ -78,6 +78,10 @@ class PalGroup:
     @property
     def guild_name(self) -> Optional[str]:
         return self._group_param.get("guild_name")
+
+    @property
+    def base_camp_level(self) -> Optional[int]:
+        return self._group_param.get("base_camp_level")
 
     @property
     def players(self) -> Optional[list[tuple[UUID, str]]]:
@@ -116,8 +120,10 @@ class GroupData:
             self.group_map[str(group_id)] = group_entity
             LOGGER.info(f"Guild Found: {group_entity}")
 
-    def get_group(self, group_id: UUID | str) -> Optional[PalGroup]:
-        return self.group_map.get(group_id)
+    def get_group(self, group_id: UUID | str | None) -> Optional[PalGroup]:
+        if group_id is None:
+            return None
+        return self.group_map.get(str(group_id))
 
     def get_groups(self) -> list[PalGroup]:
         return list(self.group_map.values())

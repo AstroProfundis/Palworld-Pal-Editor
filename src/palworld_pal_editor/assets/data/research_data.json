@@ -1,0 +1,4202 @@
+{
+    "Cool1": {
+        "InternalName": "Cool1",
+        "Category": "Cool",
+        "RequireResearchId": null,
+        "WorkAmount": 5000,
+        "EffectType": "ItemCorruptionSpeedRate",
+        "EffectValue": -10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Cooling Storage Lv1"
+            },
+            "zh-CN": {
+                "Name": "冷却保存Lv1"
+            },
+            "ja": {
+                "Name": "Cooling Storage Lv1"
+            },
+            "fr": {
+                "Name": "Conservation au frais niv. 1"
+            }
+        }
+    },
+    "Cool1_2": {
+        "InternalName": "Cool1_2",
+        "Category": "Cool",
+        "RequireResearchId": "Cool1",
+        "WorkAmount": 15000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Cool",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Cooling Lv1"
+            },
+            "zh-CN": {
+                "Name": "冷却工作Lv1"
+            },
+            "ja": {
+                "Name": "Cooling Lv1"
+            },
+            "fr": {
+                "Name": "Réfrigération niv. 1"
+            }
+        }
+    },
+    "Cool1_3": {
+        "InternalName": "Cool1_3",
+        "Category": "Cool",
+        "RequireResearchId": "Cool5",
+        "WorkAmount": 30000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Cool",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Cooling Lv2"
+            },
+            "zh-CN": {
+                "Name": "冷却工作Lv2"
+            },
+            "ja": {
+                "Name": "Cooling Lv2"
+            },
+            "fr": {
+                "Name": "Réfrigération niv. 2"
+            }
+        }
+    },
+    "Cool1_4": {
+        "InternalName": "Cool1_4",
+        "Category": "Cool",
+        "RequireResearchId": "Cool1_3",
+        "WorkAmount": 75000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Cool",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Cooling Lv3"
+            },
+            "zh-CN": {
+                "Name": "冷却工作Lv3"
+            },
+            "ja": {
+                "Name": "Cooling Lv3"
+            },
+            "fr": {
+                "Name": "Réfrigération niv. 3"
+            }
+        }
+    },
+    "Cool1_5": {
+        "InternalName": "Cool1_5",
+        "Category": "Cool",
+        "RequireResearchId": "Cool1_4",
+        "WorkAmount": 150000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Cool",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Cooling Lv4"
+            },
+            "zh-CN": {
+                "Name": "冷却工作Lv4"
+            },
+            "ja": {
+                "Name": "Cooling Lv4"
+            },
+            "fr": {
+                "Name": "Réfrigération niv. 4"
+            }
+        }
+    },
+    "Cool1_6": {
+        "InternalName": "Cool1_6",
+        "Category": "Cool",
+        "RequireResearchId": "Cool1_5",
+        "WorkAmount": 300000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Cool",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Cooling Lv5"
+            },
+            "zh-CN": {
+                "Name": "冷却工作Lv5"
+            },
+            "ja": {
+                "Name": "Cooling Lv5"
+            },
+            "fr": {
+                "Name": "Réfrigération niv. 5"
+            }
+        }
+    },
+    "Cool2": {
+        "InternalName": "Cool2",
+        "Category": "Cool",
+        "RequireResearchId": "Cool1",
+        "WorkAmount": 15000,
+        "EffectType": "PalEggHatchingSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Incubation Acceleration Lv1"
+            },
+            "zh-CN": {
+                "Name": "孵化促进Lv1"
+            },
+            "ja": {
+                "Name": "Incubation Acceleration Lv1"
+            },
+            "fr": {
+                "Name": "Incubation stimulée niv. 1"
+            }
+        }
+    },
+    "Cool2_2": {
+        "InternalName": "Cool2_2",
+        "Category": "Cool",
+        "RequireResearchId": "Cool2",
+        "WorkAmount": 30000,
+        "EffectType": "PalEggHatchingSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Incubation Acceleration Lv2"
+            },
+            "zh-CN": {
+                "Name": "孵化促进Lv2"
+            },
+            "ja": {
+                "Name": "Incubation Acceleration Lv2"
+            },
+            "fr": {
+                "Name": "Incubation stimulée niv. 2"
+            }
+        }
+    },
+    "Cool2_3": {
+        "InternalName": "Cool2_3",
+        "Category": "Cool",
+        "RequireResearchId": "Cool2_2",
+        "WorkAmount": 75000,
+        "EffectType": "PalEggHatchingSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Incubation Acceleration Lv3"
+            },
+            "zh-CN": {
+                "Name": "孵化促进Lv3"
+            },
+            "ja": {
+                "Name": "Incubation Acceleration Lv3"
+            },
+            "fr": {
+                "Name": "Incubation stimulée niv. 3"
+            }
+        }
+    },
+    "Cool2_4": {
+        "InternalName": "Cool2_4",
+        "Category": "Cool",
+        "RequireResearchId": "Cool2_3",
+        "WorkAmount": 150000,
+        "EffectType": "PalEggHatchingSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Incubation Acceleration Lv4"
+            },
+            "zh-CN": {
+                "Name": "孵化促进Lv4"
+            },
+            "ja": {
+                "Name": "Incubation Acceleration Lv4"
+            },
+            "fr": {
+                "Name": "Incubation stimulée niv. 4"
+            }
+        }
+    },
+    "Cool3": {
+        "InternalName": "Cool3",
+        "Category": "Cool",
+        "RequireResearchId": "Cool1",
+        "WorkAmount": 15000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Cool",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Cooling Research Tips Lv1"
+            },
+            "zh-CN": {
+                "Name": "冷却研究技巧Lv1"
+            },
+            "ja": {
+                "Name": "Cooling Research Tips Lv1"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en réfrigération – niv. 1"
+            }
+        }
+    },
+    "Cool3_2": {
+        "InternalName": "Cool3_2",
+        "Category": "Cool",
+        "RequireResearchId": "Cool3",
+        "WorkAmount": 30000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Cool",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Cooling Research Tips Lv2"
+            },
+            "zh-CN": {
+                "Name": "冷却研究技巧Lv2"
+            },
+            "ja": {
+                "Name": "Cooling Research Tips Lv2"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en réfrigération – niv. 2"
+            }
+        }
+    },
+    "Cool3_3": {
+        "InternalName": "Cool3_3",
+        "Category": "Cool",
+        "RequireResearchId": "Cool3_2",
+        "WorkAmount": 100000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Pals at Base Enhancement Lv1"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv1"
+            },
+            "ja": {
+                "Name": "Pals at Base Enhancement Lv1"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 1"
+            }
+        }
+    },
+    "Cool3_4": {
+        "InternalName": "Cool3_4",
+        "Category": "Cool",
+        "RequireResearchId": "Cool3_3",
+        "WorkAmount": 150000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Pals at Base Enhancement Lv2"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv2"
+            },
+            "ja": {
+                "Name": "Pals at Base Enhancement Lv2"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 2"
+            }
+        }
+    },
+    "Cool3_5": {
+        "InternalName": "Cool3_5",
+        "Category": "Cool",
+        "RequireResearchId": "Cool3_4",
+        "WorkAmount": 300000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Pals at Base Enhancement Lv3"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv3"
+            },
+            "ja": {
+                "Name": "Pals at Base Enhancement Lv3"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 3"
+            }
+        }
+    },
+    "Cool4": {
+        "InternalName": "Cool4",
+        "Category": "Cool",
+        "RequireResearchId": "Cool1_2",
+        "WorkAmount": 15000,
+        "EffectType": "ItemCorruptionSpeedRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Cooling Storage Lv2"
+            },
+            "zh-CN": {
+                "Name": "冷却保存Lv2"
+            },
+            "ja": {
+                "Name": "Cooling Storage Lv2"
+            },
+            "fr": {
+                "Name": "Conservation au frais niv. 2"
+            }
+        }
+    },
+    "Cool4_2": {
+        "InternalName": "Cool4_2",
+        "Category": "Cool",
+        "RequireResearchId": "Cool4",
+        "WorkAmount": 30000,
+        "EffectType": "ItemCorruptionSpeedRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Cooling Storage Lv3"
+            },
+            "zh-CN": {
+                "Name": "冷却保存Lv3"
+            },
+            "ja": {
+                "Name": "Cooling Storage Lv3"
+            },
+            "fr": {
+                "Name": "Conservation au frais niv. 3"
+            }
+        }
+    },
+    "Cool4_3": {
+        "InternalName": "Cool4_3",
+        "Category": "Cool",
+        "RequireResearchId": "Cool4_2",
+        "WorkAmount": 75000,
+        "EffectType": "ItemCorruptionSpeedRate",
+        "EffectValue": -10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Cooling Storage Lv4"
+            },
+            "zh-CN": {
+                "Name": "冷却保存Lv4"
+            },
+            "ja": {
+                "Name": "Cooling Storage Lv4"
+            },
+            "fr": {
+                "Name": "Conservation au frais niv. 4"
+            }
+        }
+    },
+    "Cool5": {
+        "InternalName": "Cool5",
+        "Category": "Cool",
+        "RequireResearchId": "Cool1_2",
+        "WorkAmount": 15000,
+        "EffectType": "no",
+        "EffectValue": 0.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Snowman Development"
+            },
+            "zh-CN": {
+                "Name": "雪人研发"
+            },
+            "ja": {
+                "Name": "Snowman Development"
+            },
+            "fr": {
+                "Name": "Développement : Bonhomme de neige"
+            }
+        }
+    },
+    "Deforest1": {
+        "InternalName": "Deforest1",
+        "Category": "Deforest",
+        "RequireResearchId": null,
+        "WorkAmount": 50000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Deforest",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Lumbering Lv1"
+            },
+            "zh-CN": {
+                "Name": "伐木工作Lv1"
+            },
+            "ja": {
+                "Name": "Lumbering Lv1"
+            },
+            "fr": {
+                "Name": "Abattage niv. 1"
+            }
+        }
+    },
+    "Deforest1_2": {
+        "InternalName": "Deforest1_2",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest1",
+        "WorkAmount": 150000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Deforest",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Lumbering Lv2"
+            },
+            "zh-CN": {
+                "Name": "伐木工作Lv2"
+            },
+            "ja": {
+                "Name": "Lumbering Lv2"
+            },
+            "fr": {
+                "Name": "Abattage niv. 2"
+            }
+        }
+    },
+    "Deforest1_3": {
+        "InternalName": "Deforest1_3",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest4",
+        "WorkAmount": 300000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Deforest",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Lumbering Lv3"
+            },
+            "zh-CN": {
+                "Name": "伐木工作Lv3"
+            },
+            "ja": {
+                "Name": "Lumbering Lv3"
+            },
+            "fr": {
+                "Name": "Abattage niv. 3"
+            }
+        }
+    },
+    "Deforest1_4": {
+        "InternalName": "Deforest1_4",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest1_3",
+        "WorkAmount": 750000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Deforest",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Lumbering Lv4"
+            },
+            "zh-CN": {
+                "Name": "伐木工作Lv4"
+            },
+            "ja": {
+                "Name": "Lumbering Lv4"
+            },
+            "fr": {
+                "Name": "Abattage niv. 4"
+            }
+        }
+    },
+    "Deforest1_5": {
+        "InternalName": "Deforest1_5",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest1_4",
+        "WorkAmount": 1500000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Deforest",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Lumbering Lv5"
+            },
+            "zh-CN": {
+                "Name": "伐木工作Lv5"
+            },
+            "ja": {
+                "Name": "Lumbering Lv5"
+            },
+            "fr": {
+                "Name": "Abattage niv. 5"
+            }
+        }
+    },
+    "Deforest1_6": {
+        "InternalName": "Deforest1_6",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest1_5",
+        "WorkAmount": 3000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Deforest",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Lumbering Lv6"
+            },
+            "zh-CN": {
+                "Name": "伐木工作Lv6"
+            },
+            "ja": {
+                "Name": "Lumbering Lv6"
+            },
+            "fr": {
+                "Name": "Abattage niv. 6"
+            }
+        }
+    },
+    "Deforest2": {
+        "InternalName": "Deforest2",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest1",
+        "WorkAmount": 150000,
+        "EffectType": "ExpeditionTimeCostRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Time-Saving Expedition Lv1"
+            },
+            "zh-CN": {
+                "Name": "远征省时Lv1"
+            },
+            "ja": {
+                "Name": "Time-Saving Expedition Lv1"
+            },
+            "fr": {
+                "Name": "Expéditions accélérées niv. 1"
+            }
+        }
+    },
+    "Deforest2_2": {
+        "InternalName": "Deforest2_2",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest2",
+        "WorkAmount": 300000,
+        "EffectType": "ExpeditionRewardRate",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Mastery of Expeditions Lv1"
+            },
+            "zh-CN": {
+                "Name": "远征的秘诀Lv1"
+            },
+            "ja": {
+                "Name": "Mastery of Expeditions Lv1"
+            },
+            "fr": {
+                "Name": "Secrets d'expédition niv. 1"
+            }
+        }
+    },
+    "Deforest2_3": {
+        "InternalName": "Deforest2_3",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest2",
+        "WorkAmount": 300000,
+        "EffectType": "ExpeditionTimeCostRate",
+        "EffectValue": -10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Time-Saving Expedition Lv2"
+            },
+            "zh-CN": {
+                "Name": "远征省时Lv2"
+            },
+            "ja": {
+                "Name": "Time-Saving Expedition Lv2"
+            },
+            "fr": {
+                "Name": "Expéditions accélérées niv. 2"
+            }
+        }
+    },
+    "Deforest2_4": {
+        "InternalName": "Deforest2_4",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest2_2",
+        "WorkAmount": 750000,
+        "EffectType": "ExpeditionRewardRate",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Mastery of Expeditions Lv2"
+            },
+            "zh-CN": {
+                "Name": "远征的秘诀Lv2"
+            },
+            "ja": {
+                "Name": "Mastery of Expeditions Lv2"
+            },
+            "fr": {
+                "Name": "Secrets d'expédition niv. 2"
+            }
+        }
+    },
+    "Deforest2_5": {
+        "InternalName": "Deforest2_5",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest2_3",
+        "WorkAmount": 1000000,
+        "EffectType": "ExpeditionTimeCostRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Time-Saving Expedition Lv3"
+            },
+            "zh-CN": {
+                "Name": "远征省时Lv3"
+            },
+            "ja": {
+                "Name": "Time-Saving Expedition Lv3"
+            },
+            "fr": {
+                "Name": "Expéditions accélérées niv. 3"
+            }
+        }
+    },
+    "Deforest2_6": {
+        "InternalName": "Deforest2_6",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest2_4",
+        "WorkAmount": 1500000,
+        "EffectType": "ExpeditionRewardRate",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Mastery of Expeditions Lv3"
+            },
+            "zh-CN": {
+                "Name": "远征的秘诀Lv3"
+            },
+            "ja": {
+                "Name": "Mastery of Expeditions Lv3"
+            },
+            "fr": {
+                "Name": "Secrets d'expédition niv. 3"
+            }
+        }
+    },
+    "Deforest3": {
+        "InternalName": "Deforest3",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest1",
+        "WorkAmount": 150000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Deforest",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Lumbering Research Tips Lv1"
+            },
+            "zh-CN": {
+                "Name": "伐木研究技巧Lv1"
+            },
+            "ja": {
+                "Name": "Lumbering Research Tips Lv1"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en abattage – niv. 1"
+            }
+        }
+    },
+    "Deforest3_2": {
+        "InternalName": "Deforest3_2",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest3",
+        "WorkAmount": 300000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Deforest",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Lumbering Research Tips Lv2"
+            },
+            "zh-CN": {
+                "Name": "伐木研究技巧Lv2"
+            },
+            "ja": {
+                "Name": "Lumbering Research Tips Lv2"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en abattage – niv. 2"
+            }
+        }
+    },
+    "Deforest3_3": {
+        "InternalName": "Deforest3_3",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest3_2",
+        "WorkAmount": 1000000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv1"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 1"
+            }
+        }
+    },
+    "Deforest3_4": {
+        "InternalName": "Deforest3_4",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest3_3",
+        "WorkAmount": 1500000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv2"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 2"
+            }
+        }
+    },
+    "Deforest3_5": {
+        "InternalName": "Deforest3_5",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest3_4",
+        "WorkAmount": 3000000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv3"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 3"
+            }
+        }
+    },
+    "Deforest4": {
+        "InternalName": "Deforest4",
+        "Category": "Deforest",
+        "RequireResearchId": "Deforest1_2",
+        "WorkAmount": 150000,
+        "EffectType": "no",
+        "EffectValue": 0.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Stump and Axe Development"
+            },
+            "zh-CN": {
+                "Name": "树桩和斧头研发"
+            },
+            "ja": {
+                "Name": "Stump and Axe Development"
+            },
+            "fr": {
+                "Name": "Développement : Souche et hache"
+            }
+        }
+    },
+    "EmitFlame1": {
+        "InternalName": "EmitFlame1",
+        "Category": "EmitFlame",
+        "RequireResearchId": null,
+        "WorkAmount": 50000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "EmitFlame",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Kindling Lv1"
+            },
+            "zh-CN": {
+                "Name": "生火工作Lv1"
+            },
+            "ja": {
+                "Name": "Kindling Lv1"
+            },
+            "fr": {
+                "Name": "Allumage de feu niv. 1"
+            }
+        }
+    },
+    "EmitFlame1_2": {
+        "InternalName": "EmitFlame1_2",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame1",
+        "WorkAmount": 200000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "EmitFlame",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Kindling Lv2"
+            },
+            "zh-CN": {
+                "Name": "生火工作Lv2"
+            },
+            "ja": {
+                "Name": "Kindling Lv2"
+            },
+            "fr": {
+                "Name": "Allumage de feu niv. 2"
+            }
+        }
+    },
+    "EmitFlame1_3": {
+        "InternalName": "EmitFlame1_3",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame5",
+        "WorkAmount": 500000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "EmitFlame",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Kindling Lv3"
+            },
+            "zh-CN": {
+                "Name": "生火工作Lv3"
+            },
+            "ja": {
+                "Name": "Kindling Lv3"
+            },
+            "fr": {
+                "Name": "Allumage de feu niv. 3"
+            }
+        }
+    },
+    "EmitFlame1_4": {
+        "InternalName": "EmitFlame1_4",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame1_3",
+        "WorkAmount": 1500000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "EmitFlame",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Kindling Lv4"
+            },
+            "zh-CN": {
+                "Name": "生火工作Lv4"
+            },
+            "ja": {
+                "Name": "Kindling Lv4"
+            },
+            "fr": {
+                "Name": "Allumage de feu niv. 4"
+            }
+        }
+    },
+    "EmitFlame1_5": {
+        "InternalName": "EmitFlame1_5",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame1_4",
+        "WorkAmount": 5000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "EmitFlame",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Kindling Lv5"
+            },
+            "zh-CN": {
+                "Name": "生火工作Lv5"
+            },
+            "ja": {
+                "Name": "Kindling Lv5"
+            },
+            "fr": {
+                "Name": "Allumage de feu niv. 5"
+            }
+        }
+    },
+    "EmitFlame1_6": {
+        "InternalName": "EmitFlame1_6",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame1_5",
+        "WorkAmount": 10000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "EmitFlame",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Kindling Lv6"
+            },
+            "zh-CN": {
+                "Name": "生火工作Lv6"
+            },
+            "ja": {
+                "Name": "Kindling Lv6"
+            },
+            "fr": {
+                "Name": "Allumage de feu niv. 6"
+            }
+        }
+    },
+    "EmitFlame2": {
+        "InternalName": "EmitFlame2",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame1",
+        "WorkAmount": 200000,
+        "EffectType": "PalEggHatchingSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Incubation Acceleration Lv1"
+            },
+            "zh-CN": {
+                "Name": "孵化促进Lv1"
+            },
+            "ja": {
+                "Name": "Incubation Acceleration Lv1"
+            },
+            "fr": {
+                "Name": "Incubation stimulée niv. 1"
+            }
+        }
+    },
+    "EmitFlame2_2": {
+        "InternalName": "EmitFlame2_2",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame2",
+        "WorkAmount": 500000,
+        "EffectType": "PalEggHatchingSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Incubation Acceleration Lv2"
+            },
+            "zh-CN": {
+                "Name": "孵化促进Lv2"
+            },
+            "ja": {
+                "Name": "Incubation Acceleration Lv2"
+            },
+            "fr": {
+                "Name": "Incubation stimulée niv. 2"
+            }
+        }
+    },
+    "EmitFlame2_3": {
+        "InternalName": "EmitFlame2_3",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame2_2",
+        "WorkAmount": 1500000,
+        "EffectType": "PalEggHatchingSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Incubation Acceleration Lv3"
+            },
+            "zh-CN": {
+                "Name": "孵化促进Lv3"
+            },
+            "ja": {
+                "Name": "Incubation Acceleration Lv3"
+            },
+            "fr": {
+                "Name": "Incubation stimulée niv. 3"
+            }
+        }
+    },
+    "EmitFlame2_4": {
+        "InternalName": "EmitFlame2_4",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame2_3",
+        "WorkAmount": 5000000,
+        "EffectType": "PalEggHatchingSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Incubation Acceleration Lv4"
+            },
+            "zh-CN": {
+                "Name": "孵化促进Lv4"
+            },
+            "ja": {
+                "Name": "Incubation Acceleration Lv4"
+            },
+            "fr": {
+                "Name": "Incubation stimulée niv. 4"
+            }
+        }
+    },
+    "EmitFlame3": {
+        "InternalName": "EmitFlame3",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame1",
+        "WorkAmount": 200000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "EmitFlame",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Kindling Research Tips Lv1"
+            },
+            "zh-CN": {
+                "Name": "生火研究技巧Lv1"
+            },
+            "ja": {
+                "Name": "Kindling Research Tips Lv1"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en allumage de feu – niv. 1"
+            }
+        }
+    },
+    "EmitFlame3_2": {
+        "InternalName": "EmitFlame3_2",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame3",
+        "WorkAmount": 500000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "EmitFlame",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Kindling Research Tips Lv2"
+            },
+            "zh-CN": {
+                "Name": "生火研究技巧Lv2"
+            },
+            "ja": {
+                "Name": "Kindling Research Tips Lv2"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en allumage de feu – niv. 2"
+            }
+        }
+    },
+    "EmitFlame3_3": {
+        "InternalName": "EmitFlame3_3",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame3_2",
+        "WorkAmount": 2500000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv1"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 1"
+            }
+        }
+    },
+    "EmitFlame3_4": {
+        "InternalName": "EmitFlame3_4",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame3_3",
+        "WorkAmount": 5000000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv2"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 2"
+            }
+        }
+    },
+    "EmitFlame3_5": {
+        "InternalName": "EmitFlame3_5",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame3_4",
+        "WorkAmount": 10000000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv3"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 3"
+            }
+        }
+    },
+    "EmitFlame4": {
+        "InternalName": "EmitFlame4",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame1_2",
+        "WorkAmount": 200000,
+        "EffectType": "ProductExtraItemProbability",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Dish",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Mass Cooking Technique Lv1"
+            },
+            "zh-CN": {
+                "Name": "大量烹饪术Lv1"
+            },
+            "ja": {
+                "Name": "Mass Cooking Technique Lv1"
+            },
+            "fr": {
+                "Name": "Cuisine abondante niv. 1"
+            }
+        }
+    },
+    "EmitFlame4_2": {
+        "InternalName": "EmitFlame4_2",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame4",
+        "WorkAmount": 500000,
+        "EffectType": "ProductExtraItemProbability",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Ingot",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Refinement Technique Lv1"
+            },
+            "zh-CN": {
+                "Name": "精炼技法Lv1"
+            },
+            "ja": {
+                "Name": "Refinement Technique Lv1"
+            },
+            "fr": {
+                "Name": "Dévouement au raffinage niv. 1"
+            }
+        }
+    },
+    "EmitFlame4_3": {
+        "InternalName": "EmitFlame4_3",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame4_2",
+        "WorkAmount": 2500000,
+        "EffectType": "ProductExtraItemProbability",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Dish",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Mass Cooking Technique Lv2"
+            },
+            "zh-CN": {
+                "Name": "大量烹饪术Lv2"
+            },
+            "ja": {
+                "Name": "Mass Cooking Technique Lv2"
+            },
+            "fr": {
+                "Name": "Cuisine abondante niv. 2"
+            }
+        }
+    },
+    "EmitFlame4_4": {
+        "InternalName": "EmitFlame4_4",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame4_3",
+        "WorkAmount": 5000000,
+        "EffectType": "ProductExtraItemProbability",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Ingot",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Refinement Technique Lv2"
+            },
+            "zh-CN": {
+                "Name": "精炼技法Lv2"
+            },
+            "ja": {
+                "Name": "Refinement Technique Lv2"
+            },
+            "fr": {
+                "Name": "Dévouement au raffinage niv. 2"
+            }
+        }
+    },
+    "EmitFlame5": {
+        "InternalName": "EmitFlame5",
+        "Category": "EmitFlame",
+        "RequireResearchId": "EmitFlame1_2",
+        "WorkAmount": 200000,
+        "EffectType": "no",
+        "EffectValue": 0.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Flame Cauldron Development"
+            },
+            "zh-CN": {
+                "Name": "圣火台研发"
+            },
+            "ja": {
+                "Name": "Flame Cauldron Development"
+            },
+            "fr": {
+                "Name": "Développement : Brasero"
+            }
+        }
+    },
+    "GenerateEnergy1": {
+        "InternalName": "GenerateEnergy1",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": null,
+        "WorkAmount": 150000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "GenerateElectricity",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Generating Electricity Lv1"
+            },
+            "zh-CN": {
+                "Name": "发电工作Lv1"
+            },
+            "ja": {
+                "Name": "Generating Electricity Lv1"
+            },
+            "fr": {
+                "Name": "Génération d'énergie niv. 1"
+            }
+        }
+    },
+    "GenerateEnergy1_2": {
+        "InternalName": "GenerateEnergy1_2",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy1",
+        "WorkAmount": 200000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "GenerateElectricity",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Generating Electricity Lv2"
+            },
+            "zh-CN": {
+                "Name": "发电工作Lv2"
+            },
+            "ja": {
+                "Name": "Generating Electricity Lv2"
+            },
+            "fr": {
+                "Name": "Génération d'énergie niv. 2"
+            }
+        }
+    },
+    "GenerateEnergy1_3": {
+        "InternalName": "GenerateEnergy1_3",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy1_2",
+        "WorkAmount": 1000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "GenerateElectricity",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Generating Electricity Lv3"
+            },
+            "zh-CN": {
+                "Name": "发电工作Lv3"
+            },
+            "ja": {
+                "Name": "Generating Electricity Lv3"
+            },
+            "fr": {
+                "Name": "Génération d'énergie niv. 3"
+            }
+        }
+    },
+    "GenerateEnergy1_4": {
+        "InternalName": "GenerateEnergy1_4",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy5",
+        "WorkAmount": 2000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "GenerateElectricity",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Generating Electricity Lv4"
+            },
+            "zh-CN": {
+                "Name": "发电工作Lv4"
+            },
+            "ja": {
+                "Name": "Generating Electricity Lv4"
+            },
+            "fr": {
+                "Name": "Génération d'énergie niv. 4"
+            }
+        }
+    },
+    "GenerateEnergy1_5": {
+        "InternalName": "GenerateEnergy1_5",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy1_4",
+        "WorkAmount": 5000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "GenerateElectricity",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Generating Electricity Lv5"
+            },
+            "zh-CN": {
+                "Name": "发电工作Lv5"
+            },
+            "ja": {
+                "Name": "Generating Electricity Lv5"
+            },
+            "fr": {
+                "Name": "Génération d'énergie niv. 5"
+            }
+        }
+    },
+    "GenerateEnergy1_6": {
+        "InternalName": "GenerateEnergy1_6",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy1_5",
+        "WorkAmount": 10000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "GenerateElectricity",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Generating Electricity Lv6"
+            },
+            "zh-CN": {
+                "Name": "发电工作Lv6"
+            },
+            "ja": {
+                "Name": "Generating Electricity Lv6"
+            },
+            "fr": {
+                "Name": "Génération d'énergie niv. 6"
+            }
+        }
+    },
+    "GenerateEnergy2": {
+        "InternalName": "GenerateEnergy2",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy1",
+        "WorkAmount": 500000,
+        "EffectType": "EnergyStorageRate",
+        "EffectValue": 20.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Power Storage Solutions Lv1"
+            },
+            "zh-CN": {
+                "Name": "蓄电技法Lv1"
+            },
+            "ja": {
+                "Name": "Power Storage Solutions Lv1"
+            },
+            "fr": {
+                "Name": "Dévouement au stockage d'énergie niv. 1"
+            }
+        }
+    },
+    "GenerateEnergy2_2": {
+        "InternalName": "GenerateEnergy2_2",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy2",
+        "WorkAmount": 1000000,
+        "EffectType": "EnergyStorageRate",
+        "EffectValue": 20.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Power Storage Solutions Lv2"
+            },
+            "zh-CN": {
+                "Name": "蓄电技法Lv2"
+            },
+            "ja": {
+                "Name": "Power Storage Solutions Lv2"
+            },
+            "fr": {
+                "Name": "Dévouement au stockage d'énergie niv. 2"
+            }
+        }
+    },
+    "GenerateEnergy2_3": {
+        "InternalName": "GenerateEnergy2_3",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy2_2",
+        "WorkAmount": 2000000,
+        "EffectType": "EnergyStorageRate",
+        "EffectValue": 30.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Power Storage Solutions Lv3"
+            },
+            "zh-CN": {
+                "Name": "蓄电技法Lv3"
+            },
+            "ja": {
+                "Name": "Power Storage Solutions Lv3"
+            },
+            "fr": {
+                "Name": "Dévouement au stockage d'énergie niv. 3"
+            }
+        }
+    },
+    "GenerateEnergy3": {
+        "InternalName": "GenerateEnergy3",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy1",
+        "WorkAmount": 500000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "GenerateElectricity",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Generating Electricity Research Tips Lv1"
+            },
+            "zh-CN": {
+                "Name": "发电研究技巧Lv1"
+            },
+            "ja": {
+                "Name": "Generating Electricity Research Tips Lv1"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en génération d’énergie – niv. 1"
+            }
+        }
+    },
+    "GenerateEnergy3_2": {
+        "InternalName": "GenerateEnergy3_2",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy3",
+        "WorkAmount": 1000000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "GenerateElectricity",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Generating Electricity Research Tips Lv2"
+            },
+            "zh-CN": {
+                "Name": "发电研究技巧Lv2"
+            },
+            "ja": {
+                "Name": "Generating Electricity Research Tips Lv2"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en génération d’énergie – niv. 2"
+            }
+        }
+    },
+    "GenerateEnergy3_3": {
+        "InternalName": "GenerateEnergy3_3",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy3_2",
+        "WorkAmount": 3000000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv1"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 1"
+            }
+        }
+    },
+    "GenerateEnergy3_4": {
+        "InternalName": "GenerateEnergy3_4",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy3_3",
+        "WorkAmount": 5000000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv2"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 2"
+            }
+        }
+    },
+    "GenerateEnergy3_5": {
+        "InternalName": "GenerateEnergy3_5",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy3_4",
+        "WorkAmount": 10000000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv3"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 3"
+            }
+        }
+    },
+    "GenerateEnergy4": {
+        "InternalName": "GenerateEnergy4",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy1_2",
+        "WorkAmount": 1000000,
+        "EffectType": "ConsumeEnergyRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Power Saving Mastery Lv1"
+            },
+            "zh-CN": {
+                "Name": "省电的秘诀Lv1"
+            },
+            "ja": {
+                "Name": "Power Saving Mastery Lv1"
+            },
+            "fr": {
+                "Name": "Secrets d'économie d'énergie niv. 1"
+            }
+        }
+    },
+    "GenerateEnergy4_2": {
+        "InternalName": "GenerateEnergy4_2",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy4",
+        "WorkAmount": 2000000,
+        "EffectType": "ConsumeEnergyRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Power Saving Mastery Lv2"
+            },
+            "zh-CN": {
+                "Name": "省电的秘诀Lv2"
+            },
+            "ja": {
+                "Name": "Power Saving Mastery Lv2"
+            },
+            "fr": {
+                "Name": "Secrets d'économie d'énergie niv. 2"
+            }
+        }
+    },
+    "GenerateEnergy4_3": {
+        "InternalName": "GenerateEnergy4_3",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy4_2",
+        "WorkAmount": 5000000,
+        "EffectType": "ConsumeEnergyRate",
+        "EffectValue": -10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Power Saving Mastery Lv3"
+            },
+            "zh-CN": {
+                "Name": "省电的秘诀Lv3"
+            },
+            "ja": {
+                "Name": "Power Saving Mastery Lv3"
+            },
+            "fr": {
+                "Name": "Secrets d'économie d'énergie niv. 3"
+            }
+        }
+    },
+    "GenerateEnergy5": {
+        "InternalName": "GenerateEnergy5",
+        "Category": "GenerateElectricity",
+        "RequireResearchId": "GenerateEnergy1_3",
+        "WorkAmount": 500000,
+        "EffectType": "no",
+        "EffectValue": 0.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Electric Pylon Development"
+            },
+            "zh-CN": {
+                "Name": "输电塔研发"
+            },
+            "ja": {
+                "Name": "Electric Pylon Development"
+            },
+            "fr": {
+                "Name": "Développement : Poteau électrique"
+            }
+        }
+    },
+    "Handcraft1": {
+        "InternalName": "Handcraft1",
+        "Category": "Handcraft",
+        "RequireResearchId": null,
+        "WorkAmount": 50000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Handcraft",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Handiwork Speed Lv1"
+            },
+            "zh-CN": {
+                "Name": "手工作业速度Lv1"
+            },
+            "ja": {
+                "Name": "Handiwork Speed Lv1"
+            },
+            "fr": {
+                "Name": "Vitesse d’artisanat niv. 1"
+            }
+        }
+    },
+    "Handcraft1_2": {
+        "InternalName": "Handcraft1_2",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft1",
+        "WorkAmount": 200000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Handcraft",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Handiwork Speed Lv2"
+            },
+            "zh-CN": {
+                "Name": "手工作业速度Lv2"
+            },
+            "ja": {
+                "Name": "Handiwork Speed Lv2"
+            },
+            "fr": {
+                "Name": "Vitesse d’artisanat niv. 2"
+            }
+        }
+    },
+    "Handcraft1_3": {
+        "InternalName": "Handcraft1_3",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft5",
+        "WorkAmount": 500000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Handcraft",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Handiwork Speed Lv3"
+            },
+            "zh-CN": {
+                "Name": "手工作业速度Lv3"
+            },
+            "ja": {
+                "Name": "Handiwork Speed Lv3"
+            },
+            "fr": {
+                "Name": "Vitesse d’artisanat niv. 3"
+            }
+        }
+    },
+    "Handcraft1_4": {
+        "InternalName": "Handcraft1_4",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft1_3",
+        "WorkAmount": 1500000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Handcraft",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Handiwork Speed Lv4"
+            },
+            "zh-CN": {
+                "Name": "手工作业速度Lv4"
+            },
+            "ja": {
+                "Name": "Handiwork Speed Lv4"
+            },
+            "fr": {
+                "Name": "Vitesse d’artisanat niv. 4"
+            }
+        }
+    },
+    "Handcraft1_5": {
+        "InternalName": "Handcraft1_5",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft1_4",
+        "WorkAmount": 5000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Handcraft",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Handiwork Speed Lv5"
+            },
+            "zh-CN": {
+                "Name": "手工作业速度Lv5"
+            },
+            "ja": {
+                "Name": "Handiwork Speed Lv5"
+            },
+            "fr": {
+                "Name": "Vitesse d’artisanat niv. 5"
+            }
+        }
+    },
+    "Handcraft1_6": {
+        "InternalName": "Handcraft1_6",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft1_5",
+        "WorkAmount": 10000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Handcraft",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Handiwork Speed Lv6"
+            },
+            "zh-CN": {
+                "Name": "手工作业速度Lv6"
+            },
+            "ja": {
+                "Name": "Handiwork Speed Lv6"
+            },
+            "fr": {
+                "Name": "Vitesse d’artisanat niv. 6"
+            }
+        }
+    },
+    "Handcraft2": {
+        "InternalName": "Handcraft2",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft1",
+        "WorkAmount": 200000,
+        "EffectType": "ProductItemConsumeMaterialNumRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "ArmorBody",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Armor Crafting Optimization Lv1"
+            },
+            "zh-CN": {
+                "Name": "防具制作节约术Lv1"
+            },
+            "ja": {
+                "Name": "Armor Crafting Optimization Lv1"
+            },
+            "fr": {
+                "Name": "Fabrication de protections économique niv. 1"
+            }
+        }
+    },
+    "Handcraft2_2": {
+        "InternalName": "Handcraft2_2",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft2",
+        "WorkAmount": 150000,
+        "EffectType": "ProductItemConsumeMaterialNumRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "PalGear",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Pal Gear Crafting Cost-Saving Technique Lv1"
+            },
+            "zh-CN": {
+                "Name": "帕鲁装备制作节约术Lv1"
+            },
+            "ja": {
+                "Name": "Pal Gear Crafting Cost-Saving Technique Lv1"
+            },
+            "fr": {
+                "Name": "Fabrication d'équipement de Pal économique niv. 1"
+            }
+        }
+    },
+    "Handcraft2_3": {
+        "InternalName": "Handcraft2_3",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft2_2",
+        "WorkAmount": 500000,
+        "EffectType": "ProductItemConsumeMaterialNumRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Weapon",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Weapon Crafting Optimization Technique Lv1"
+            },
+            "zh-CN": {
+                "Name": "武器制作节约术Lv1"
+            },
+            "ja": {
+                "Name": "Weapon Crafting Optimization Technique Lv1"
+            },
+            "fr": {
+                "Name": "Fabrication d'armes économique niv. 1"
+            }
+        }
+    },
+    "Handcraft2_4": {
+        "InternalName": "Handcraft2_4",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft2_3",
+        "WorkAmount": 1500000,
+        "EffectType": "ProductItemConsumeMaterialNumRate",
+        "EffectValue": -10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "ArmorBody",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Armor Crafting Optimization Technique Lv2"
+            },
+            "zh-CN": {
+                "Name": "防具制作节约术Lv2"
+            },
+            "ja": {
+                "Name": "Armor Crafting Optimization Technique Lv2"
+            },
+            "fr": {
+                "Name": "Fabrication de protections économique niv. 2"
+            }
+        }
+    },
+    "Handcraft2_5": {
+        "InternalName": "Handcraft2_5",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft2_4",
+        "WorkAmount": 2000000,
+        "EffectType": "ProductItemConsumeMaterialNumRate",
+        "EffectValue": -10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "PalGear",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Pal Gear Crafting Optimization Technique Lv2"
+            },
+            "zh-CN": {
+                "Name": "帕鲁装备制作节约术Lv2"
+            },
+            "ja": {
+                "Name": "Pal Gear Crafting Optimization Technique Lv2"
+            },
+            "fr": {
+                "Name": "Fabrication d'équipement de Pal économique niv. 2"
+            }
+        }
+    },
+    "Handcraft2_6": {
+        "InternalName": "Handcraft2_6",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft2_5",
+        "WorkAmount": 5000000,
+        "EffectType": "ProductItemConsumeMaterialNumRate",
+        "EffectValue": -10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Weapon",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Weapon Crafting Optimization Technique Lv2"
+            },
+            "zh-CN": {
+                "Name": "武器制作节约术Lv2"
+            },
+            "ja": {
+                "Name": "Weapon Crafting Optimization Technique Lv2"
+            },
+            "fr": {
+                "Name": "Fabrication d'armes économique niv. 2"
+            }
+        }
+    },
+    "Handcraft3": {
+        "InternalName": "Handcraft3",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft1",
+        "WorkAmount": 200000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Handcraft",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Handiwork Research Tips Lv1"
+            },
+            "zh-CN": {
+                "Name": "手工作业研究技巧Lv1"
+            },
+            "ja": {
+                "Name": "Handiwork Research Tips Lv1"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en artisanat – niv. 1"
+            }
+        }
+    },
+    "Handcraft3_2": {
+        "InternalName": "Handcraft3_2",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft3",
+        "WorkAmount": 500000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Handcraft",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Handiwork Research Tips Lv2"
+            },
+            "zh-CN": {
+                "Name": "手工作业研究技巧Lv2"
+            },
+            "ja": {
+                "Name": "Handiwork Research Tips Lv2"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en artisanat – niv. 2"
+            }
+        }
+    },
+    "Handcraft3_3": {
+        "InternalName": "Handcraft3_3",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft3_2",
+        "WorkAmount": 2500000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv1"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 1"
+            }
+        }
+    },
+    "Handcraft3_4": {
+        "InternalName": "Handcraft3_4",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft3_3",
+        "WorkAmount": 5000000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv2"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 2"
+            }
+        }
+    },
+    "Handcraft3_5": {
+        "InternalName": "Handcraft3_5",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft3_4",
+        "WorkAmount": 10000000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv3"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 3"
+            }
+        }
+    },
+    "Handcraft4": {
+        "InternalName": "Handcraft4",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft1_2",
+        "WorkAmount": 200000,
+        "EffectType": "ProductExtraItemProbability",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "CaptureBall",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Sphere Duplication Technique Lv1"
+            },
+            "zh-CN": {
+                "Name": "帕鲁球复制技术Lv1"
+            },
+            "ja": {
+                "Name": "Sphere Duplication Technique Lv1"
+            },
+            "fr": {
+                "Name": "Duplication de sphères niv. 1"
+            }
+        }
+    },
+    "Handcraft4_2": {
+        "InternalName": "Handcraft4_2",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft4",
+        "WorkAmount": 500000,
+        "EffectType": "ProductExtraItemProbability",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Bullet",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Ammunition Duplication Technique Lv1"
+            },
+            "zh-CN": {
+                "Name": "弹药复制技术Lv1"
+            },
+            "ja": {
+                "Name": "Ammunition Duplication Technique Lv1"
+            },
+            "fr": {
+                "Name": "Duplication de munitions niv. 1"
+            }
+        }
+    },
+    "Handcraft4_3": {
+        "InternalName": "Handcraft4_3",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft4_2",
+        "WorkAmount": 2500000,
+        "EffectType": "ProductExtraItemProbability",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "CaptureBall",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Sphere Duplication Technique Lv2"
+            },
+            "zh-CN": {
+                "Name": "帕鲁球复制技术Lv2"
+            },
+            "ja": {
+                "Name": "Sphere Duplication Technique Lv2"
+            },
+            "fr": {
+                "Name": "Duplication de sphères niv. 2"
+            }
+        }
+    },
+    "Handcraft4_4": {
+        "InternalName": "Handcraft4_4",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft4_3",
+        "WorkAmount": 5000000,
+        "EffectType": "ProductExtraItemProbability",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Bullet",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Ammunition Duplication Technique Lv2"
+            },
+            "zh-CN": {
+                "Name": "弹药复制技术Lv2"
+            },
+            "ja": {
+                "Name": "Ammunition Duplication Technique Lv2"
+            },
+            "fr": {
+                "Name": "Duplication de munitions niv. 2"
+            }
+        }
+    },
+    "Handcraft5": {
+        "InternalName": "Handcraft5",
+        "Category": "Handcraft",
+        "RequireResearchId": "Handcraft1_2",
+        "WorkAmount": 200000,
+        "EffectType": "no",
+        "EffectValue": 0.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Large Toolbox Development"
+            },
+            "zh-CN": {
+                "Name": "大型工具箱研发"
+            },
+            "ja": {
+                "Name": "Large Toolbox Development"
+            },
+            "fr": {
+                "Name": "Développement : Grosse caisse à outils"
+            }
+        }
+    },
+    "Medicine1": {
+        "InternalName": "Medicine1",
+        "Category": "ProductMedicine",
+        "RequireResearchId": null,
+        "WorkAmount": 50000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "ProductMedicine",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Medicine Production Task Lv1"
+            },
+            "zh-CN": {
+                "Name": "制药工作Lv1"
+            },
+            "ja": {
+                "Name": "Medicine Production Task Lv1"
+            },
+            "fr": {
+                "Name": "Fabrication de médicaments niv. 1"
+            }
+        }
+    },
+    "Medicine1_2": {
+        "InternalName": "Medicine1_2",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine1",
+        "WorkAmount": 200000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "ProductMedicine",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Medicine Production Task Lv2"
+            },
+            "zh-CN": {
+                "Name": "制药工作Lv2"
+            },
+            "ja": {
+                "Name": "Medicine Production Task Lv2"
+            },
+            "fr": {
+                "Name": "Fabrication de médicaments niv. 2"
+            }
+        }
+    },
+    "Medicine1_3": {
+        "InternalName": "Medicine1_3",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine4",
+        "WorkAmount": 500000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "ProductMedicine",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Medicine Production Task Lv3"
+            },
+            "zh-CN": {
+                "Name": "制药工作Lv3"
+            },
+            "ja": {
+                "Name": "Medicine Production Task Lv3"
+            },
+            "fr": {
+                "Name": "Fabrication de médicaments niv. 3"
+            }
+        }
+    },
+    "Medicine1_4": {
+        "InternalName": "Medicine1_4",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine1_3",
+        "WorkAmount": 1500000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "ProductMedicine",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Medicine Production Task Lv4"
+            },
+            "zh-CN": {
+                "Name": "制药工作Lv4"
+            },
+            "ja": {
+                "Name": "Medicine Production Task Lv4"
+            },
+            "fr": {
+                "Name": "Fabrication de médicaments niv. 4"
+            }
+        }
+    },
+    "Medicine1_5": {
+        "InternalName": "Medicine1_5",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine1_4",
+        "WorkAmount": 5000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "ProductMedicine",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Medicine Production Task Lv5"
+            },
+            "zh-CN": {
+                "Name": "制药工作Lv5"
+            },
+            "ja": {
+                "Name": "Medicine Production Task Lv5"
+            },
+            "fr": {
+                "Name": "Fabrication de médicaments niv. 5"
+            }
+        }
+    },
+    "Medicine1_6": {
+        "InternalName": "Medicine1_6",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine1_5",
+        "WorkAmount": 10000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "ProductMedicine",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Medicine Production Task Lv6"
+            },
+            "zh-CN": {
+                "Name": "制药工作Lv6"
+            },
+            "ja": {
+                "Name": "Medicine Production Task Lv6"
+            },
+            "fr": {
+                "Name": "Fabrication de médicaments niv. 6"
+            }
+        }
+    },
+    "Medicine2": {
+        "InternalName": "Medicine2",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine1",
+        "WorkAmount": 200000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "ProductMedicine",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Medicine Production Research Tips Lv1"
+            },
+            "zh-CN": {
+                "Name": "制药研究技巧Lv1"
+            },
+            "ja": {
+                "Name": "Medicine Production Research Tips Lv1"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en pharmacie – niv. 1"
+            }
+        }
+    },
+    "Medicine2_2": {
+        "InternalName": "Medicine2_2",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine2",
+        "WorkAmount": 500000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "ProductMedicine",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Medicine Production Research Tips Lv2"
+            },
+            "zh-CN": {
+                "Name": "制药研究技巧Lv2"
+            },
+            "ja": {
+                "Name": "Medicine Production Research Tips Lv2"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en pharmacie – niv. 2"
+            }
+        }
+    },
+    "Medicine2_3": {
+        "InternalName": "Medicine2_3",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine2_2",
+        "WorkAmount": 1500000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Pals at Base Enhancement Lv1"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv1"
+            },
+            "ja": {
+                "Name": "Pals at Base Enhancement Lv1"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 1"
+            }
+        }
+    },
+    "Medicine2_4": {
+        "InternalName": "Medicine2_4",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine2_3",
+        "WorkAmount": 5000000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Pals at Base Enhancement Lv2"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv2"
+            },
+            "ja": {
+                "Name": "Pals at Base Enhancement Lv2"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 2"
+            }
+        }
+    },
+    "Medicine2_5": {
+        "InternalName": "Medicine2_5",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine2_4",
+        "WorkAmount": 10000000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Pals at Base Enhancement Lv3"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv3"
+            },
+            "ja": {
+                "Name": "Pals at Base Enhancement Lv3"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 3"
+            }
+        }
+    },
+    "Medicine3": {
+        "InternalName": "Medicine3",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine1_2",
+        "WorkAmount": 500000,
+        "EffectType": "ProductItemConsumeMaterialNumRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Medicine",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Pharmaceutical Cost-Saving Technique Lv1"
+            },
+            "zh-CN": {
+                "Name": "药物制作节约术Lv1"
+            },
+            "ja": {
+                "Name": "Pharmaceutical Cost-Saving Technique Lv1"
+            },
+            "fr": {
+                "Name": "Fabrication de médicaments économique niv. 1"
+            }
+        }
+    },
+    "Medicine3_2": {
+        "InternalName": "Medicine3_2",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine3",
+        "WorkAmount": 1500000,
+        "EffectType": "ProductItemConsumeMaterialNumRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Medicine",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Pharmaceutical Cost-Saving Technique Lv2"
+            },
+            "zh-CN": {
+                "Name": "药物制作节约术Lv2"
+            },
+            "ja": {
+                "Name": "Pharmaceutical Cost-Saving Technique Lv2"
+            },
+            "fr": {
+                "Name": "Fabrication de médicaments économique niv. 2"
+            }
+        }
+    },
+    "Medicine3_3": {
+        "InternalName": "Medicine3_3",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine3_2",
+        "WorkAmount": 5000000,
+        "EffectType": "ProductItemConsumeMaterialNumRate",
+        "EffectValue": -10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Medicine",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Pharmaceutical Cost-Saving Technique Lv3"
+            },
+            "zh-CN": {
+                "Name": "药物制作节约术Lv3"
+            },
+            "ja": {
+                "Name": "Pharmaceutical Cost-Saving Technique Lv3"
+            },
+            "fr": {
+                "Name": "Fabrication de médicaments économique niv. 3"
+            }
+        }
+    },
+    "Medicine4": {
+        "InternalName": "Medicine4",
+        "Category": "ProductMedicine",
+        "RequireResearchId": "Medicine1_2",
+        "WorkAmount": 200000,
+        "EffectType": "no",
+        "EffectValue": 0.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Witch's Cauldron Development"
+            },
+            "zh-CN": {
+                "Name": "魔女之釜研发"
+            },
+            "ja": {
+                "Name": "Witch's Cauldron Development"
+            },
+            "fr": {
+                "Name": "Développement : Chaudron de sorcière"
+            }
+        }
+    },
+    "Mining1": {
+        "InternalName": "Mining1",
+        "Category": "Mining",
+        "RequireResearchId": null,
+        "WorkAmount": 50000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Mining",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Mining Lv1"
+            },
+            "zh-CN": {
+                "Name": "采矿工作Lv1"
+            },
+            "ja": {
+                "Name": "Mining Lv1"
+            },
+            "fr": {
+                "Name": "Extraction niv. 1"
+            }
+        }
+    },
+    "Mining1_2": {
+        "InternalName": "Mining1_2",
+        "Category": "Mining",
+        "RequireResearchId": "Mining1",
+        "WorkAmount": 150000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Mining",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Mining Lv2"
+            },
+            "zh-CN": {
+                "Name": "采矿工作Lv2"
+            },
+            "ja": {
+                "Name": "Mining Lv2"
+            },
+            "fr": {
+                "Name": "Extraction niv. 2"
+            }
+        }
+    },
+    "Mining1_3": {
+        "InternalName": "Mining1_3",
+        "Category": "Mining",
+        "RequireResearchId": "Mining5",
+        "WorkAmount": 300000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Mining",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Mining Lv3"
+            },
+            "zh-CN": {
+                "Name": "采矿工作Lv3"
+            },
+            "ja": {
+                "Name": "Mining Lv3"
+            },
+            "fr": {
+                "Name": "Extraction niv. 3"
+            }
+        }
+    },
+    "Mining1_4": {
+        "InternalName": "Mining1_4",
+        "Category": "Mining",
+        "RequireResearchId": "Mining1_3",
+        "WorkAmount": 750000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Mining",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Mining Lv4"
+            },
+            "zh-CN": {
+                "Name": "采矿工作Lv4"
+            },
+            "ja": {
+                "Name": "Mining Lv4"
+            },
+            "fr": {
+                "Name": "Extraction niv. 4"
+            }
+        }
+    },
+    "Mining1_5": {
+        "InternalName": "Mining1_5",
+        "Category": "Mining",
+        "RequireResearchId": "Mining1_4",
+        "WorkAmount": 1500000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Mining",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Mining Lv5"
+            },
+            "zh-CN": {
+                "Name": "采矿工作Lv5"
+            },
+            "ja": {
+                "Name": "Mining Lv5"
+            },
+            "fr": {
+                "Name": "Extraction niv. 5"
+            }
+        }
+    },
+    "Mining1_6": {
+        "InternalName": "Mining1_6",
+        "Category": "Mining",
+        "RequireResearchId": "Mining1_5",
+        "WorkAmount": 3000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Mining",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Mining Lv6"
+            },
+            "zh-CN": {
+                "Name": "采矿工作Lv6"
+            },
+            "ja": {
+                "Name": "Mining Lv6"
+            },
+            "fr": {
+                "Name": "Extraction niv. 6"
+            }
+        }
+    },
+    "Mining2": {
+        "InternalName": "Mining2",
+        "Category": "Mining",
+        "RequireResearchId": "Mining1",
+        "WorkAmount": 150000,
+        "EffectType": "ExpeditionTimeCostRate",
+        "EffectValue": -5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Time-Saving Expedition Lv1"
+            },
+            "zh-CN": {
+                "Name": "远征省时Lv1"
+            },
+            "ja": {
+                "Name": "Time-Saving Expedition Lv1"
+            },
+            "fr": {
+                "Name": "Expéditions accélérées niv. 1"
+            }
+        }
+    },
+    "Mining2_2": {
+        "InternalName": "Mining2_2",
+        "Category": "Mining",
+        "RequireResearchId": "Mining2",
+        "WorkAmount": 300000,
+        "EffectType": "ExpeditionRewardRate",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Mastery of Expeditions Lv1"
+            },
+            "zh-CN": {
+                "Name": "远征的秘诀Lv1"
+            },
+            "ja": {
+                "Name": "Mastery of Expeditions Lv1"
+            },
+            "fr": {
+                "Name": "Secrets d'expédition niv. 1"
+            }
+        }
+    },
+    "Mining2_3": {
+        "InternalName": "Mining2_3",
+        "Category": "Mining",
+        "RequireResearchId": "Mining2_2",
+        "WorkAmount": 750000,
+        "EffectType": "ExpeditionTimeCostRate",
+        "EffectValue": -10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Time-Saving Expedition Lv2"
+            },
+            "zh-CN": {
+                "Name": "远征省时Lv2"
+            },
+            "ja": {
+                "Name": "Time-Saving Expedition Lv2"
+            },
+            "fr": {
+                "Name": "Expéditions accélérées niv. 2"
+            }
+        }
+    },
+    "Mining2_4": {
+        "InternalName": "Mining2_4",
+        "Category": "Mining",
+        "RequireResearchId": "Mining2_3",
+        "WorkAmount": 1000000,
+        "EffectType": "ExpeditionRewardRate",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Mastery of Expeditions Lv2"
+            },
+            "zh-CN": {
+                "Name": "远征的秘诀Lv2"
+            },
+            "ja": {
+                "Name": "Mastery of Expeditions Lv2"
+            },
+            "fr": {
+                "Name": "Secrets d'expédition niv. 2"
+            }
+        }
+    },
+    "Mining3": {
+        "InternalName": "Mining3",
+        "Category": "Mining",
+        "RequireResearchId": "Mining1",
+        "WorkAmount": 150000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Mining",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Mining Research Tips Lv1"
+            },
+            "zh-CN": {
+                "Name": "采矿研究技巧Lv1"
+            },
+            "ja": {
+                "Name": "Mining Research Tips Lv1"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en extraction – niv. 1"
+            }
+        }
+    },
+    "Mining3_2": {
+        "InternalName": "Mining3_2",
+        "Category": "Mining",
+        "RequireResearchId": "Mining3",
+        "WorkAmount": 300000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Mining",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Mining Research Tips Lv2"
+            },
+            "zh-CN": {
+                "Name": "采矿研究技巧Lv2"
+            },
+            "ja": {
+                "Name": "Mining Research Tips Lv2"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en extraction – niv. 2"
+            }
+        }
+    },
+    "Mining3_3": {
+        "InternalName": "Mining3_3",
+        "Category": "Mining",
+        "RequireResearchId": "Mining3_2",
+        "WorkAmount": 1000000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv1"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 1"
+            }
+        }
+    },
+    "Mining3_4": {
+        "InternalName": "Mining3_4",
+        "Category": "Mining",
+        "RequireResearchId": "Mining3_3",
+        "WorkAmount": 1500000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv2"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 2"
+            }
+        }
+    },
+    "Mining3_5": {
+        "InternalName": "Mining3_5",
+        "Category": "Mining",
+        "RequireResearchId": "Mining3_4",
+        "WorkAmount": 3000000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv3"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 3"
+            }
+        }
+    },
+    "Mining4": {
+        "InternalName": "Mining4",
+        "Category": "Mining",
+        "RequireResearchId": "Mining1_3",
+        "WorkAmount": 750000,
+        "EffectType": "OilExtractionSpeedRate",
+        "EffectValue": 20.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Crude Oil Extraction Efficiency Lv1"
+            },
+            "zh-CN": {
+                "Name": "采油效率提升lv1"
+            },
+            "ja": {
+                "Name": "Crude Oil Extraction Efficiency Lv1"
+            },
+            "fr": {
+                "Name": "Extraction de pétrole optimisée niv. 1"
+            }
+        }
+    },
+    "Mining4_2": {
+        "InternalName": "Mining4_2",
+        "Category": "Mining",
+        "RequireResearchId": "Mining4",
+        "WorkAmount": 1000000,
+        "EffectType": "OilExtractionSpeedRate",
+        "EffectValue": 30.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Crude Oil Extraction Efficiency Lv2"
+            },
+            "zh-CN": {
+                "Name": "采油效率提升lv2"
+            },
+            "ja": {
+                "Name": "Crude Oil Extraction Efficiency Lv2"
+            },
+            "fr": {
+                "Name": "Extraction de pétrole optimisée niv. 2"
+            }
+        }
+    },
+    "Mining4_3": {
+        "InternalName": "Mining4_3",
+        "Category": "Mining",
+        "RequireResearchId": "Mining4_2",
+        "WorkAmount": 1500000,
+        "EffectType": "OilExtractionSpeedRate",
+        "EffectValue": 40.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Crude Oil Extraction Efficiency Lv3"
+            },
+            "zh-CN": {
+                "Name": "采油效率提升lv3"
+            },
+            "ja": {
+                "Name": "Crude Oil Extraction Efficiency Lv3"
+            },
+            "fr": {
+                "Name": "Extraction de pétrole optimisée niv. 3"
+            }
+        }
+    },
+    "Mining5": {
+        "InternalName": "Mining5",
+        "Category": "Mining",
+        "RequireResearchId": "Mining1_2",
+        "WorkAmount": 150000,
+        "EffectType": "no",
+        "EffectValue": 0.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Mining Cart Development"
+            },
+            "zh-CN": {
+                "Name": "矿车研发"
+            },
+            "ja": {
+                "Name": "Mining Cart Development"
+            },
+            "fr": {
+                "Name": "Développement : Wagon minier"
+            }
+        }
+    },
+    "Seeding1": {
+        "InternalName": "Seeding1",
+        "Category": "Seeding",
+        "RequireResearchId": null,
+        "WorkAmount": 50000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Seeding",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Planting Lv1"
+            },
+            "zh-CN": {
+                "Name": "播种工作Lv1"
+            },
+            "ja": {
+                "Name": "Planting Lv1"
+            },
+            "fr": {
+                "Name": "Semence niv. 1"
+            }
+        }
+    },
+    "Seeding1_2": {
+        "InternalName": "Seeding1_2",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding1",
+        "WorkAmount": 150000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Seeding",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Planting Lv2"
+            },
+            "zh-CN": {
+                "Name": "播种工作Lv2"
+            },
+            "ja": {
+                "Name": "Planting Lv2"
+            },
+            "fr": {
+                "Name": "Semence niv. 2"
+            }
+        }
+    },
+    "Seeding1_3": {
+        "InternalName": "Seeding1_3",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding5",
+        "WorkAmount": 300000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Seeding",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Planting Lv3"
+            },
+            "zh-CN": {
+                "Name": "播种工作Lv3"
+            },
+            "ja": {
+                "Name": "Planting Lv3"
+            },
+            "fr": {
+                "Name": "Semence niv. 3"
+            }
+        }
+    },
+    "Seeding1_4": {
+        "InternalName": "Seeding1_4",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding1_3",
+        "WorkAmount": 750000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Seeding",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Planting Lv4"
+            },
+            "zh-CN": {
+                "Name": "播种工作Lv4"
+            },
+            "ja": {
+                "Name": "Planting Lv4"
+            },
+            "fr": {
+                "Name": "Semence niv. 4"
+            }
+        }
+    },
+    "Seeding1_5": {
+        "InternalName": "Seeding1_5",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding1_4",
+        "WorkAmount": 1500000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Seeding",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Planting Lv5"
+            },
+            "zh-CN": {
+                "Name": "播种工作Lv5"
+            },
+            "ja": {
+                "Name": "Planting Lv5"
+            },
+            "fr": {
+                "Name": "Semence niv. 5"
+            }
+        }
+    },
+    "Seeding1_6": {
+        "InternalName": "Seeding1_6",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding1_5",
+        "WorkAmount": 3000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Seeding",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Planting Lv6"
+            },
+            "zh-CN": {
+                "Name": "播种工作Lv6"
+            },
+            "ja": {
+                "Name": "Planting Lv6"
+            },
+            "fr": {
+                "Name": "Semence niv. 6"
+            }
+        }
+    },
+    "Seeding2": {
+        "InternalName": "Seeding2",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding1",
+        "WorkAmount": 150000,
+        "EffectType": "FarmCropGrowupSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Crop Knowledge Lv1"
+            },
+            "zh-CN": {
+                "Name": "作物知识Lv1"
+            },
+            "ja": {
+                "Name": "Crop Knowledge Lv1"
+            },
+            "fr": {
+                "Name": "Connaissances en production niv. 1"
+            }
+        }
+    },
+    "Seeding2_2": {
+        "InternalName": "Seeding2_2",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding2",
+        "WorkAmount": 300000,
+        "EffectType": "FarmCropHarvestNumRate",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Harvest Knowledge Lv1"
+            },
+            "zh-CN": {
+                "Name": "收割知识Lv1"
+            },
+            "ja": {
+                "Name": "Harvest Knowledge Lv1"
+            },
+            "fr": {
+                "Name": "Connaissances en récolte niv. 1"
+            }
+        }
+    },
+    "Seeding2_3": {
+        "InternalName": "Seeding2_3",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding2",
+        "WorkAmount": 750000,
+        "EffectType": "FarmCropGrowupSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Crop Knowledge Lv2"
+            },
+            "zh-CN": {
+                "Name": "作物知识Lv2"
+            },
+            "ja": {
+                "Name": "Crop Knowledge Lv2"
+            },
+            "fr": {
+                "Name": "Connaissances en production niv. 2"
+            }
+        }
+    },
+    "Seeding2_4": {
+        "InternalName": "Seeding2_4",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding2_3",
+        "WorkAmount": 1500000,
+        "EffectType": "FarmCropGrowupSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Crop Knowledge Lv3"
+            },
+            "zh-CN": {
+                "Name": "作物知识Lv3"
+            },
+            "ja": {
+                "Name": "Crop Knowledge Lv3"
+            },
+            "fr": {
+                "Name": "Connaissances en production niv. 3"
+            }
+        }
+    },
+    "Seeding2_5": {
+        "InternalName": "Seeding2_5",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding2_2",
+        "WorkAmount": 750000,
+        "EffectType": "FarmCropHarvestNumRate",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Harvest Knowledge Lv2"
+            },
+            "zh-CN": {
+                "Name": "收割知识Lv2"
+            },
+            "ja": {
+                "Name": "Harvest Knowledge Lv2"
+            },
+            "fr": {
+                "Name": "Connaissances en récolte niv. 2"
+            }
+        }
+    },
+    "Seeding2_6": {
+        "InternalName": "Seeding2_6",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding2_5",
+        "WorkAmount": 1500000,
+        "EffectType": "FarmCropHarvestNumRate",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Harvest Knowledge Lv3"
+            },
+            "zh-CN": {
+                "Name": "收割知识Lv3"
+            },
+            "ja": {
+                "Name": "Harvest Knowledge Lv3"
+            },
+            "fr": {
+                "Name": "Connaissances en récolte niv. 3"
+            }
+        }
+    },
+    "Seeding3": {
+        "InternalName": "Seeding3",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding1",
+        "WorkAmount": 150000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Seeding",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Planting Research Tips Lv1"
+            },
+            "zh-CN": {
+                "Name": "播种研究技巧Lv1"
+            },
+            "ja": {
+                "Name": "Planting Research Tips Lv1"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en semence – niv. 1"
+            }
+        }
+    },
+    "Seeding3_2": {
+        "InternalName": "Seeding3_2",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding3",
+        "WorkAmount": 300000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Seeding",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Planting Research Tips Lv2"
+            },
+            "zh-CN": {
+                "Name": "播种研究技巧Lv2"
+            },
+            "ja": {
+                "Name": "Planting Research Tips Lv2"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en semence – niv. 2"
+            }
+        }
+    },
+    "Seeding3_3": {
+        "InternalName": "Seeding3_3",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding3_2",
+        "WorkAmount": 1000000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv1"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 1"
+            }
+        }
+    },
+    "Seeding3_4": {
+        "InternalName": "Seeding3_4",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding3_3",
+        "WorkAmount": 1500000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv2"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 2"
+            }
+        }
+    },
+    "Seeding3_5": {
+        "InternalName": "Seeding3_5",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding3_4",
+        "WorkAmount": 3000000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv3"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 3"
+            }
+        }
+    },
+    "Seeding4": {
+        "InternalName": "Seeding4",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding1_2",
+        "WorkAmount": 150000,
+        "EffectType": "no",
+        "EffectValue": 0.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Flower Bed Development"
+            },
+            "zh-CN": {
+                "Name": "花坛研发"
+            },
+            "ja": {
+                "Name": "Flower Bed Development"
+            },
+            "fr": {
+                "Name": "Développement : Parterre"
+            }
+        }
+    },
+    "Seeding5": {
+        "InternalName": "Seeding5",
+        "Category": "Seeding",
+        "RequireResearchId": "Seeding4",
+        "WorkAmount": 200000,
+        "EffectType": "no",
+        "EffectValue": 0.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Silo Development"
+            },
+            "zh-CN": {
+                "Name": "筒仓研发"
+            },
+            "ja": {
+                "Name": "Silo Development"
+            },
+            "fr": {
+                "Name": "Développement : Silo"
+            }
+        }
+    },
+    "Watering1": {
+        "InternalName": "Watering1",
+        "Category": "Watering",
+        "RequireResearchId": null,
+        "WorkAmount": 50000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Watering",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Watering Lv1"
+            },
+            "zh-CN": {
+                "Name": "浇水工作Lv1"
+            },
+            "ja": {
+                "Name": "Watering Lv1"
+            },
+            "fr": {
+                "Name": "Arrosage niv. 1"
+            }
+        }
+    },
+    "Watering1_2": {
+        "InternalName": "Watering1_2",
+        "Category": "Watering",
+        "RequireResearchId": "Watering1",
+        "WorkAmount": 150000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Watering",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Watering Lv2"
+            },
+            "zh-CN": {
+                "Name": "浇水工作Lv2"
+            },
+            "ja": {
+                "Name": "Watering Lv2"
+            },
+            "fr": {
+                "Name": "Arrosage niv. 2"
+            }
+        }
+    },
+    "Watering1_3": {
+        "InternalName": "Watering1_3",
+        "Category": "Watering",
+        "RequireResearchId": "Watering5",
+        "WorkAmount": 300000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Watering",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Watering Lv3"
+            },
+            "zh-CN": {
+                "Name": "浇水工作Lv3"
+            },
+            "ja": {
+                "Name": "Watering Lv3"
+            },
+            "fr": {
+                "Name": "Arrosage niv. 3"
+            }
+        }
+    },
+    "Watering1_4": {
+        "InternalName": "Watering1_4",
+        "Category": "Watering",
+        "RequireResearchId": "Watering1_3",
+        "WorkAmount": 750000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "Watering",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Watering Lv4"
+            },
+            "zh-CN": {
+                "Name": "浇水工作Lv4"
+            },
+            "ja": {
+                "Name": "Watering Lv4"
+            },
+            "fr": {
+                "Name": "Arrosage niv. 4"
+            }
+        }
+    },
+    "Watering1_5": {
+        "InternalName": "Watering1_5",
+        "Category": "Watering",
+        "RequireResearchId": "Watering1_4",
+        "WorkAmount": 1500000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Watering",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Watering Lv5"
+            },
+            "zh-CN": {
+                "Name": "浇水工作Lv5"
+            },
+            "ja": {
+                "Name": "Watering Lv5"
+            },
+            "fr": {
+                "Name": "Arrosage niv. 5"
+            }
+        }
+    },
+    "Watering1_6": {
+        "InternalName": "Watering1_6",
+        "Category": "Watering",
+        "RequireResearchId": "Watering1_5",
+        "WorkAmount": 3000000,
+        "EffectType": "CraftSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Watering",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Watering Lv6"
+            },
+            "zh-CN": {
+                "Name": "浇水工作Lv6"
+            },
+            "ja": {
+                "Name": "Watering Lv6"
+            },
+            "fr": {
+                "Name": "Arrosage niv. 6"
+            }
+        }
+    },
+    "Watering2": {
+        "InternalName": "Watering2",
+        "Category": "Watering",
+        "RequireResearchId": "Watering1",
+        "WorkAmount": 150000,
+        "EffectType": "FarmCropGrowupSpeed",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Crop Knowledge Lv1"
+            },
+            "zh-CN": {
+                "Name": "作物知识Lv1"
+            },
+            "ja": {
+                "Name": "Crop Knowledge Lv1"
+            },
+            "fr": {
+                "Name": "Connaissances en production niv. 1"
+            }
+        }
+    },
+    "Watering2_2": {
+        "InternalName": "Watering2_2",
+        "Category": "Watering",
+        "RequireResearchId": "Watering2",
+        "WorkAmount": 300000,
+        "EffectType": "FarmCropHarvestNumRate",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Harvest Knowledge Lv1"
+            },
+            "zh-CN": {
+                "Name": "收割知识Lv1"
+            },
+            "ja": {
+                "Name": "Harvest Knowledge Lv1"
+            },
+            "fr": {
+                "Name": "Connaissances en récolte niv. 1"
+            }
+        }
+    },
+    "Watering2_3": {
+        "InternalName": "Watering2_3",
+        "Category": "Watering",
+        "RequireResearchId": "Watering2_2",
+        "WorkAmount": 750000,
+        "EffectType": "FarmCropGrowupSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Crop Knowledge Lv2"
+            },
+            "zh-CN": {
+                "Name": "作物知识Lv2"
+            },
+            "ja": {
+                "Name": "Crop Knowledge Lv2"
+            },
+            "fr": {
+                "Name": "Connaissances en production niv. 2"
+            }
+        }
+    },
+    "Watering2_4": {
+        "InternalName": "Watering2_4",
+        "Category": "Watering",
+        "RequireResearchId": "Watering2_3",
+        "WorkAmount": 1500000,
+        "EffectType": "FarmCropHarvestNumRate",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Harvest Knowledge Lv2"
+            },
+            "zh-CN": {
+                "Name": "收割知识Lv2"
+            },
+            "ja": {
+                "Name": "Harvest Knowledge Lv2"
+            },
+            "fr": {
+                "Name": "Connaissances en récolte niv. 2"
+            }
+        }
+    },
+    "Watering3": {
+        "InternalName": "Watering3",
+        "Category": "Watering",
+        "RequireResearchId": "Watering1",
+        "WorkAmount": 200000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Watering",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Watering Research Tips Lv1"
+            },
+            "zh-CN": {
+                "Name": "浇水研究技巧Lv1"
+            },
+            "ja": {
+                "Name": "Watering Research Tips Lv1"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en arrosage – niv. 1"
+            }
+        }
+    },
+    "Watering3_2": {
+        "InternalName": "Watering3_2",
+        "Category": "Watering",
+        "RequireResearchId": "Watering3",
+        "WorkAmount": 750000,
+        "EffectType": "LabResearchSpeed",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "Watering",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Watering Research Tips Lv2"
+            },
+            "zh-CN": {
+                "Name": "浇水研究技巧Lv2"
+            },
+            "ja": {
+                "Name": "Watering Research Tips Lv2"
+            },
+            "fr": {
+                "Name": "Bases de la recherche en arrosage – niv. 2"
+            }
+        }
+    },
+    "Watering3_3": {
+        "InternalName": "Watering3_3",
+        "Category": "Watering",
+        "RequireResearchId": "Watering3_2",
+        "WorkAmount": 1000000,
+        "EffectType": "DefenseRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv1"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv1"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 1"
+            }
+        }
+    },
+    "Watering3_4": {
+        "InternalName": "Watering3_4",
+        "Category": "Watering",
+        "RequireResearchId": "Watering3_3",
+        "WorkAmount": 1500000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv2"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv2"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 2"
+            }
+        }
+    },
+    "Watering3_5": {
+        "InternalName": "Watering3_5",
+        "Category": "Watering",
+        "RequireResearchId": "Watering3_4",
+        "WorkAmount": 3000000,
+        "EffectType": "AttackRateBaseCampWorker",
+        "EffectValue": 2.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "zh-CN": {
+                "Name": "据点帕鲁强化Lv3"
+            },
+            "ja": {
+                "Name": "Base Pal Enhancement Lv3"
+            },
+            "fr": {
+                "Name": "Renforcement des Pals de la base niv. 3"
+            }
+        }
+    },
+    "Watering4": {
+        "InternalName": "Watering4",
+        "Category": "Watering",
+        "RequireResearchId": "Watering1_2",
+        "WorkAmount": 500000,
+        "EffectType": "ProductExtraItemProbability",
+        "EffectValue": 5.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Ore",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Paldium Crushing Technique Lv1"
+            },
+            "zh-CN": {
+                "Name": "帕鲁矿粉碎术Lv1"
+            },
+            "ja": {
+                "Name": "Paldium Crushing Technique Lv1"
+            },
+            "fr": {
+                "Name": "Broyage de paldium niv. 1"
+            }
+        }
+    },
+    "Watering4_2": {
+        "InternalName": "Watering4_2",
+        "Category": "Watering",
+        "RequireResearchId": "Watering4",
+        "WorkAmount": 1000000,
+        "EffectType": "ProductExtraItemProbability",
+        "EffectValue": 10.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "Ore",
+        "IsEssential": true,
+        "I18n": {
+            "en": {
+                "Name": "Paldium Crushing Technique Lv2"
+            },
+            "zh-CN": {
+                "Name": "帕鲁矿粉碎术Lv2"
+            },
+            "ja": {
+                "Name": "Paldium Crushing Technique Lv2"
+            },
+            "fr": {
+                "Name": "Broyage de paldium niv. 2"
+            }
+        }
+    },
+    "Watering5": {
+        "InternalName": "Watering5",
+        "Category": "Watering",
+        "RequireResearchId": "Watering1_2",
+        "WorkAmount": 150000,
+        "EffectType": "no",
+        "EffectValue": 0.0,
+        "EffectWorkSuitability": "None",
+        "EffectItemType": "None",
+        "IsEssential": false,
+        "I18n": {
+            "en": {
+                "Name": "Fountain Development"
+            },
+            "zh-CN": {
+                "Name": "喷泉研发"
+            },
+            "ja": {
+                "Name": "Fountain Development"
+            },
+            "fr": {
+                "Name": "Développement : Fontaine"
+            }
+        }
+    }
+}

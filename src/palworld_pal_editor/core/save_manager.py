@@ -7,11 +7,18 @@ from typing import Optional
 import uuid
 
 from palworld_save_tools.gvas import GvasFile
-from palworld_save_tools.archive import FArchiveReader, FArchiveWriter, UUID
+from palworld_save_tools.archive import (
+    FArchiveReader,
+    FArchiveWriter,
+    UUID,
+    without_custom_type,
+)
 from palworld_save_tools.palsav import compress_gvas_to_sav, decompress_sav_to_gvas
 from palworld_save_tools.paltypes import PALWORLD_CUSTOM_PROPERTIES, PALWORLD_TYPE_HINTS
+from palworld_save_tools.rawdata import guild_lab
 
-from palworld_pal_editor.core.basecamp_data import BaseCampData
+from palworld_pal_editor.core.basecamp_data import BaseCampData, PalBaseCamp
+from palworld_pal_editor.core.guild_lab_data import GuildExtraData, PalGuildLab
 
 from palworld_pal_editor.core.container_data import ContainerData
 
@@ -95,6 +102,76 @@ def skip_encode(writer: FArchiveWriter, property_type: str, properties: dict) ->
         )
 
 
+def guild_lab_decode(
+    reader: FArchiveReader, type_name: str, size: int, path: str
+) -> dict:
+    """Decode known Lab data while preserving unknown payloads verbatim."""
+    if type_name != "ArrayProperty":
+        raise Exception(f"Expected ArrayProperty, got {type_name}")
+
+    value = reader.property(type_name, size, path, nested_caller_path=path)
+    raw_bytes = value["value"]["values"]
+    try:
+        value["value"] = guild_lab.decode_bytes(reader, raw_bytes)
+    except Exception as error:
+        LOGGER.warning(f"Unable to decode Guild Lab data, preserving raw bytes: {error}")
+    return value
+
+
+def guild_lab_encode(
+    writer: FArchiveWriter, property_type: str, properties: dict
+) -> int:
+    """Write opaque Lab payloads unchanged and encode supported payloads normally."""
+    value = properties.get("value")
+    if isinstance(value, dict) and "values" in value:
+        return writer.property_inner(property_type, without_custom_type(properties))
+    return guild_lab.encode(writer, property_type, properties)
+
+
+def guild_extra_decode(
+    reader: FArchiveReader, type_name: str, size: int, path: str
+) -> dict:
+    """Decode GuildExtra data from a copy while retaining a byte-exact fallback."""
+    if type_name != "MapProperty":
+        LOGGER.warning(
+            f"Unsupported GuildExtra property type {type_name}, preserving raw data"
+        )
+        return skip_decode(reader, type_name, size, path)
+
+    start = reader.data.tell()
+    reader.fstring()
+    reader.fstring()
+    reader.optional_guid()
+    reader.read(size)
+    end = reader.data.tell()
+    reader.data.seek(start)
+    body = reader.read(end - start)
+
+    try:
+        copy_reader = reader.internal_copy(body, debug=False)
+        decoded = copy_reader.property(
+            type_name, size, path, nested_caller_path=path
+        )
+        if not copy_reader.eof():
+            raise ValueError("GuildExtra payload contains unparsed bytes")
+        return decoded
+    except Exception as error:
+        LOGGER.warning(
+            f"Unable to decode GuildExtra data, preserving raw bytes: {error}"
+        )
+        return {"opaque_body": body, "opaque_size": size}
+
+
+def guild_extra_encode(
+    writer: FArchiveWriter, property_type: str, properties: dict
+) -> int:
+    """Write unsupported GuildExtra data byte-for-byte or encode known data."""
+    if "opaque_body" in properties:
+        writer.write(properties["opaque_body"])
+        return properties["opaque_size"]
+    return writer.property_inner(property_type, without_custom_type(properties))
+
+
 MAIN_SKIP_PROPERTIES = copy.deepcopy(PALWORLD_CUSTOM_PROPERTIES)
 MAIN_SKIP_PROPERTIES[".worldSaveData.MapObjectSaveData"] = (skip_decode, skip_encode)
 MAIN_SKIP_PROPERTIES[".worldSaveData.FoliageGridSaveDataMap"] = (skip_decode, skip_encode)
@@ -115,7 +192,17 @@ MAIN_SKIP_PROPERTIES[".worldSaveData.OilrigSaveData"] = (skip_decode, skip_encod
 MAIN_SKIP_PROPERTIES[".worldSaveData.SupplySaveData"] = (skip_decode, skip_encode)
 
 MAIN_SKIP_PROPERTIES[".worldSaveData.RandomizerSaveData"] = (skip_decode, skip_encode)
-MAIN_SKIP_PROPERTIES[".worldSaveData.GuildExtraSaveDataMap"] = (skip_decode, skip_encode)
+# Keep only the guild item chest opaque; Lab.RawData is decoded so guild research
+# can be inspected and edited.
+MAIN_SKIP_PROPERTIES[".worldSaveData.GuildExtraSaveDataMap.Value.GuildItemStorage.RawData"] = (skip_decode, skip_encode)
+MAIN_SKIP_PROPERTIES[".worldSaveData.GuildExtraSaveDataMap.Value.Lab.RawData"] = (
+    guild_lab_decode,
+    guild_lab_encode,
+)
+MAIN_SKIP_PROPERTIES[".worldSaveData.GuildExtraSaveDataMap"] = (
+    guild_extra_decode,
+    guild_extra_encode,
+)
 
 
 PLAYER_SKIP_PROPERTIES = copy.deepcopy(PALWORLD_CUSTOM_PROPERTIES)
@@ -128,6 +215,7 @@ class SaveManager:
     # Although these are class attrs, SaveManager itself is singleton so it should be fine?
     _instance = None
     _file_path: Optional[Path]
+    guild_extra_data: Optional[GuildExtraData]
     _raw_gvas: Optional[bytes]
     _compression_times: Optional[int]
 
@@ -150,8 +238,23 @@ class SaveManager:
     def __init__(self):
         if not hasattr(self, "initialized"):
             self.initialized = True
+            self._clear_loaded_state()
+
+    def _clear_loaded_state(self) -> None:
+        self._raw_gvas = None
+        self._compression_times = None
+        self.gvas_file = None
+        self._entities_list = None
+        self.player_mapping = {}
+        self.baseworker_mapping = {}
+        self._dangling_pals = {}
+        self.container_data = None
+        self.group_data = None
+        self.camp_data = None
+        self.guild_extra_data = None
                 
     def open(self, file_path: str) -> Optional[GvasFile]:
+        self._clear_loaded_state()
         self._file_path = Path(file_path).resolve()
 
         level_sav_path = self._file_path / "Level.sav"
@@ -195,24 +298,39 @@ class SaveManager:
                 self.group_data = GroupData(self.gvas_file)
             except Exception as e:
                 LOGGER.error(f"Error parsing group data: {e}")
+                self._clear_loaded_state()
                 return None
-            
+
+            try:
+                self.guild_extra_data = GuildExtraData(self.gvas_file)
+            except Exception as e:
+                # Guild lab research is a secondary feature; a parsing failure here
+                # must not prevent loading an otherwise-valid save. Degrade to "no
+                # research editing" instead of aborting the whole load.
+                LOGGER.warning(
+                    f"Error parsing guild extra data, research editing disabled: {e}"
+                )
+                self.guild_extra_data = None
+
             try:
                 self.camp_data = BaseCampData(self.gvas_file)
             except Exception as e:
                 LOGGER.error(f"Error parsing base camp data: {e}")
+                self._clear_loaded_state()
                 return None
             
             try:
                 self.container_data = ContainerData(self.gvas_file)
             except Exception as e:
                 LOGGER.error(f"Error parsing container data: {e}")
+                self._clear_loaded_state()
                 return None
 
             try:
                 self._entities_list = self.gvas_file.properties["worldSaveData"]["value"]["CharacterSaveParameterMap"]["value"]
             except Exception as e:
                 LOGGER.error(f"Unable to retrieve pal data: {e}")
+                self._clear_loaded_state()
                 return None
 
             self._load_entities()
@@ -316,6 +434,11 @@ class SaveManager:
         self._dangling_pals = {}
         self.baseworker_mapping = {}
         temp_player_pal_mapping: dict[str, dict[str, PalEntity]] = {}
+        base_container_ids = {
+            str(camp.container_id)
+            for camp in self.get_bases()
+            if camp.container_id is not None
+        }
         for entity in self._entities_list:
             entity_struct = entity["value"]["RawData"]["value"]["object"]["SaveParameter"]
             if entity_struct['struct_type'] != 'PalIndividualCharacterSaveParameter':
@@ -358,6 +481,13 @@ class SaveManager:
                     if is_unref_pal:
                         LOGGER.info(f"Likely Ghost Pal: {pal_entity}")
                     pal_entity.is_unreferenced_pal = is_unref_pal
+
+                    if (
+                        pal_entity.ContainerId is not None
+                        and str(pal_entity.ContainerId) in base_container_ids
+                    ):
+                        self.baseworker_mapping[str(pal_entity.InstanceId)] = pal_entity
+                        continue
 
                     owner = pal_entity.OwnerPlayerUId
                     if owner:
@@ -435,7 +565,54 @@ class SaveManager:
         LOGGER.warning(f"Can't find pal {guid}")
 
     def get_working_pals(self) -> list[PalEntity]:
-        return sorted(self.baseworker_mapping.values(), key=lambda pal: (alphanumeric_key(pal.PalDeckID), pal.Level or 1))
+        return self._sort_pals(self.baseworker_mapping.values())
+
+    @staticmethod
+    def _sort_pals(pals) -> list[PalEntity]:
+        return sorted(
+            pals,
+            key=lambda pal: (
+                alphanumeric_key(pal.PalDeckID or ""),
+                pal.Level or 1,
+                str(pal.InstanceId or ""),
+            ),
+        )
+
+    def get_bases(self) -> list[PalBaseCamp]:
+        return self.camp_data.get_camps() if self.camp_data else []
+
+    def get_base(self, camp_id: UUID | str) -> Optional[PalBaseCamp]:
+        return self.camp_data.get_camp(camp_id) if self.camp_data else None
+
+    def get_base_working_pals(
+        self, camp_id: UUID | str
+    ) -> Optional[list[PalEntity]]:
+        camp = self.get_base(camp_id)
+        if camp is None:
+            return None
+        if camp.container_id is None:
+            return []
+        container_id = str(camp.container_id)
+        return self._sort_pals(
+            pal
+            for pal in self.baseworker_mapping.values()
+            if pal.ContainerId is not None and str(pal.ContainerId) == container_id
+        )
+
+    def get_unassigned_working_pals(self) -> list[PalEntity]:
+        base_container_ids = {
+            str(camp.container_id)
+            for camp in self.get_bases()
+            if camp.container_id is not None
+        }
+        return self._sort_pals(
+            pal
+            for pal in self.baseworker_mapping.values()
+            if pal.ContainerId is None or str(pal.ContainerId) not in base_container_ids
+        )
+
+    def get_guild_lab(self, guild_id: UUID | str) -> Optional[PalGuildLab]:
+        return self.guild_extra_data.get_guild_lab(guild_id) if self.guild_extra_data else None
 
     
     def move_pal(self, pal_id: UUID | str, target_container_ids: list[UUID | str]) -> bool:

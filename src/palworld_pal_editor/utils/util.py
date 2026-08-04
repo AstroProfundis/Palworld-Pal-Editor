@@ -1,4 +1,5 @@
 from pathlib import Path
+import math
 import re
 from functools import wraps
 import sys
@@ -38,6 +39,17 @@ def alphanumeric_key(key: str):
     convert = lambda text: int(text) if text.isdigit() else text.lower()
     alphanumeric_list = [convert(c) for c in re.split("([0-9]+)", key)]
     return alphanumeric_list
+
+
+def world_to_game_map_coordinates(
+    world_x: float,
+    world_y: float,
+) -> dict[str, int]:
+    """Convert Unreal world coordinates to the coordinates displayed by the game."""
+    return {
+        "x": math.floor(((world_y - 157935.0) / 459.0) + 0.5),
+        "y": math.floor(((world_x + 123930.0) / 459.0) + 0.5),
+    }
 
 
 def clamp(min_value: int, max_value: int, val: int) -> int:

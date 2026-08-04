@@ -26,6 +26,7 @@ app = Flask(__name__, static_folder=ASSETS_PATH / "webui", static_url_path='/')
 app.register_blueprint(player_blueprint, url_prefix='/api/player')
 app.register_blueprint(pal_blueprint, url_prefix='/api/pal')
 app.register_blueprint(save_blueprint, url_prefix='/api/save')
+app.register_blueprint(guild_blueprint, url_prefix='/api/guild')
 app.register_blueprint(auth_blueprint, url_prefix='/api/auth')
 
 app.config['JWT_SECRET_KEY'] = Config.JWT_SECRET_KEY

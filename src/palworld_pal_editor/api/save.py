@@ -237,6 +237,38 @@ def get_tech_data():
     return reply(0, {"techLvDict": tech_lv_dict})
 
 
+@save_blueprint.route("/research_data", methods=["GET"])
+@jwt_required()
+def get_research_data():
+    # Group research into per-category ordered buckets; the frontend rebuilds the
+    # dependency tree from each item's RequireResearchId. Categories map 1:1 to work
+    # suitabilities, so the category key doubles as the suitability icon key.
+    categories: dict[str, dict] = {}
+    for research, research_data in DataProvider.iter_displayable_research():
+        category = DataProvider.get_research_category(research)
+        bucket = categories.get(category)
+        if bucket is None:
+            bucket = {
+                "key": category,
+                "label": DataProvider.get_research_category_label(category),
+                "icon": category,
+                "items": [],
+            }
+            categories[category] = bucket
+        bucket["items"].append(
+            {
+                "InternalName": research,
+                "RequireResearchId": research_data.get("RequireResearchId"),
+                "WorkAmount": DataProvider.get_research_work_amount(research),
+                "IsEssential": DataProvider.is_essential_research(research),
+                "Name": DataProvider.get_research_i18n(research),
+                "Description": DataProvider.get_research_description(research),
+            }
+        )
+
+    return reply(0, {"researchCategories": list(categories.values())})
+
+
 @save_blueprint.route("/path", methods=["GET"])
 @jwt_required()
 def get_path():
